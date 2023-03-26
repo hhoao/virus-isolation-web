@@ -1,9 +1,9 @@
 <template>
   <section
-    class="full-loading"
-    :class="{ absolute, [theme]: !!theme }"
-    :style="[background ? `background-color: ${background}` : '']"
     v-show="loading"
+    class="full-loading"
+    :class="{ absolute }"
+    :style="[background ? `background-color: ${background}` : '']"
   >
     <Spin v-bind="$attrs" :tip="tip" :size="size" :spinning="loading" />
   </section>
@@ -39,9 +39,6 @@
       },
       background: {
         type: String as PropType<string>,
-      },
-      theme: {
-        type: String as PropType<'dark' | 'light'>,
       },
     },
   });

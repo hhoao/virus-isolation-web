@@ -1,5 +1,4 @@
-import type { RouteRecordRaw, RouteMeta } from 'vue-router';
-import { RoleEnum } from '/@/enums/roleEnum';
+import type { RouteMeta, RouteRecordRaw } from 'vue-router';
 import { defineComponent } from 'vue';
 
 export type Component<T = any> =
@@ -14,7 +13,7 @@ export interface AppRouteRecordRaw extends Omit<RouteRecordRaw, 'meta'> {
   component?: Component | string;
   components?: Component;
   children?: AppRouteRecordRaw[];
-  props?: Recordable;
+  props?: Recordable | boolean;
   fullPath?: string;
 }
 
@@ -39,8 +38,6 @@ export interface Menu {
   children?: Menu[];
 
   orderNo?: number;
-
-  roles?: RoleEnum[];
 
   meta?: Partial<RouteMeta>;
 

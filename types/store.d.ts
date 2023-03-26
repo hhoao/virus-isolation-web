@@ -1,14 +1,6 @@
 import { ErrorTypeEnum } from '/@/enums/exceptionEnum';
 import { MenuModeEnum, MenuTypeEnum } from '/@/enums/menuEnum';
-import { RoleInfo } from '/@/api/model/UserModel';
-
-// Lock screen information
-export interface LockInfo {
-  // Password required
-  pwd?: string | undefined;
-  // Is it locked?
-  isLock?: boolean;
-}
+import { RoleInfo } from '/@/api/model/userModel';
 
 // Error-log information
 export interface ErrorLogInfo {

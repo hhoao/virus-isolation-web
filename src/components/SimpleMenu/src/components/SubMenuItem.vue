@@ -1,7 +1,7 @@
 <template>
   <li :class="getClass">
     <template v-if="!getCollapse">
-      <div :class="`${prefixCls}-submenu-title`" @click.stop="handleClick" :style="getItemStyle">
+      <div :class="`${prefixCls}-submenu-title`" :style="getItemStyle" @click.stop="handleClick">
         <slot name="title"></slot>
         <Icon
           icon="eva:arrow-ios-downward-outline"
@@ -10,20 +10,20 @@
         />
       </div>
       <CollapseTransition>
-        <ul :class="prefixCls" v-show="opened">
+        <ul v-show="opened" :class="prefixCls">
           <slot></slot>
         </ul>
       </CollapseTransition>
     </template>
 
     <Popover
-      placement="right"
-      :overlayClassName="`${prefixCls}-menu-popover`"
       v-else
+      placement="right"
+      :overlay-class-name="`${prefixCls}-menu-popover`"
       :visible="getIsOpend"
-      @visible-change="handleVisibleChange"
-      :overlayStyle="getOverlayStyle"
+      :overlay-style="getOverlayStyle"
       :align="{ offset: [0, 0] }"
+      @visible-change="handleVisibleChange"
     >
       <div :class="getSubClass" v-bind="getEvents(false)">
         <div
@@ -46,7 +46,7 @@
       <!-- eslint-disable-next-line -->
       <template #content v-show="opened">
         <div v-bind="getEvents(true)">
-          <ul :class="[prefixCls, `${prefixCls}-${getTheme}`, `${prefixCls}-popup`]">
+          <ul :class="[prefixCls, `${prefixCls}-popup`]">
             <slot></slot>
           </ul>
         </div>
@@ -73,18 +73,18 @@
   import { propTypes } from '/@/utils/propTypes';
   import { useMenuItem } from './useMenu';
   import { useSimpleRootMenuContext } from './useSimpleMenuContext';
-  import { CollapseTransition } from '/@/components/Transition';
   import Icon from '/@/components/Icon';
   import { Popover } from 'ant-design-vue';
   import { isBoolean, isObject } from '/@/utils/is';
   import mitt from '/@/utils/mitt';
+  import CollapseTransition from '/@/components/Transition/src/CollapseTransition.vue';
 
   const DELAY = 200;
   export default defineComponent({
     name: 'SubMenu',
     components: {
-      Icon,
       CollapseTransition,
+      Icon,
       Popover,
     },
     props: {
@@ -100,7 +100,7 @@
 
       const state = reactive({
         active: false,
-        opened: false,
+        opened: true,
       });
 
       const data = reactive({
@@ -145,7 +145,6 @@
 
       const getAccordion = computed(() => rootProps.accordion);
       const getCollapse = computed(() => rootProps.collapse);
-      const getTheme = computed(() => rootProps.theme);
 
       const getOverlayStyle = computed((): CSSProperties => {
         return {
@@ -283,9 +282,9 @@
               return;
             }
 
-            if (props.name && Array.isArray(data)) {
-              state.opened = (data as (string | number)[]).includes(props.name);
-            }
+            // if (props.name && Array.isArray(data)) {
+            //   state.opened = (data as (string | number)[]).includes(props.name);
+            // }
           },
         );
 
@@ -322,7 +321,6 @@
         handleVisibleChange,
         getParentSubMenu,
         getOverlayStyle,
-        getTheme,
         getIsOpend,
         getEvents,
         getSubClass,

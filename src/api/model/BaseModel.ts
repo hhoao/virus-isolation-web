@@ -1,9 +1,14 @@
 export interface BasicPageParams {
-  pageNum: number;
-  pageSize: number;
+  pageNum?: number;
+  pageSize?: number;
+  totalPage?: number;
+  total?: number | string;
 }
 
-export interface BasicFetchResult<T> {
+export interface BasicFetchPageResult<T> {
   list: T[];
-  total: number;
+  pageNum: number;
+  pageSize: number;
+  totalPage?: number;
+  total?: number;
 }

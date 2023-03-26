@@ -8,6 +8,8 @@ import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
 import { useRootSetting } from '/@/hooks/setting/useRootSetting';
 import { useFullContent } from '/@/hooks/web/useFullContent';
 import { MenuModeEnum } from '/@/enums/menuEnum';
+import { router } from '/@/router';
+import { PageEnum } from '/@/enums/pageEnum';
 
 export function useHeaderSetting() {
   const { getFullContent } = useFullContent();
@@ -48,9 +50,11 @@ export function useHeaderSetting() {
 
   const getShowDoc = computed(() => appStore.getHeaderSetting.showDoc);
 
-  const getHeaderTheme = computed(() => appStore.getHeaderSetting.theme);
-
-  const getShowHeader = computed(() => appStore.getHeaderSetting.show);
+  const getShowHeader = computed(
+    () =>
+      appStore.getHeaderSetting.show &&
+      !router.currentRoute.value.path.startsWith(PageEnum.ARTICLE_PAGE),
+  );
 
   const getFixed = computed(() => appStore.getHeaderSetting.fixed);
 
@@ -58,11 +62,7 @@ export function useHeaderSetting() {
 
   const getShowSearch = computed(() => appStore.getHeaderSetting.showSearch);
 
-  const getUseLockPage = computed(() => appStore.getHeaderSetting.useLockPage);
-
   const getShowFullScreen = computed(() => appStore.getHeaderSetting.showFullScreen);
-
-  const getShowNotice = computed(() => appStore.getHeaderSetting.showNotice);
 
   const getShowBread = computed(() => {
     return (
@@ -87,10 +87,7 @@ export function useHeaderSetting() {
 
     getShowDoc,
     getShowSearch,
-    getHeaderTheme,
-    getUseLockPage,
     getShowFullScreen,
-    getShowNotice,
     getShowBread,
     getShowContent,
     getShowHeaderLogo,

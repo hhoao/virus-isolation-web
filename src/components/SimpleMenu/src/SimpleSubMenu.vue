@@ -1,7 +1,7 @@
 <template>
   <MenuItem
-    :name="item.path"
     v-if="!menuHasChildren(item) && getShowMenu"
+    :meta="item"
     v-bind="$props"
     :class="getLevelClass"
   >
@@ -13,14 +13,14 @@
       <span :class="['ml-2', `${prefixCls}-sub-title`]">
         {{ getI18nName }}
       </span>
-      <SimpleMenuTag :item="item" :collapseParent="getIsCollapseParent" />
+      <SimpleMenuTag :item="item" :collapse-parent="getIsCollapseParent" />
     </template>
   </MenuItem>
   <SubMenu
-    :name="item.path"
     v-if="menuHasChildren(item) && getShowMenu"
-    :class="[getLevelClass, theme]"
-    :collapsedShowTitle="collapsedShowTitle"
+    :name="item.path"
+    :class="[getLevelClass]"
+    :collapsed-show-title="collapsedShowTitle"
   >
     <template #title>
       <Icon v-if="getIcon" :icon="getIcon" :size="16" />
@@ -32,7 +32,7 @@
       <span v-show="getShowSubTitle" :class="['ml-2', `${prefixCls}-sub-title`]">
         {{ getI18nName }}
       </span>
-      <SimpleMenuTag :item="item" :collapseParent="!!collapse && !!parent" />
+      <SimpleMenuTag :item="item" :collapse-parent="!!collapse && !!parent" />
     </template>
     <template v-for="childrenItem in item.children || []" :key="childrenItem.path">
       <SimpleSubMenu v-bind="$props" :item="childrenItem" :parent="false" />
@@ -69,7 +69,6 @@
       parent: propTypes.bool,
       collapsedShowTitle: propTypes.bool,
       collapse: propTypes.bool,
-      theme: propTypes.oneOf(['dark', 'light']),
     },
     setup(props) {
       const { t } = useI18n();

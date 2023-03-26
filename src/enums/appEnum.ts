@@ -1,4 +1,4 @@
-export const SIDE_BAR_MINI_WIDTH = 48;
+export const SIDE_BAR_MINI_WIDTH = 0;
 export const SIDE_BAR_SHOW_TIT_MINI_WIDTH = 80;
 
 export enum ContentEnum {
@@ -6,12 +6,6 @@ export enum ContentEnum {
   FULL = 'full',
   // fixed width
   FIXED = 'fixed',
-}
-
-// menu theme enum
-export enum ThemeEnum {
-  DARK = 'dark',
-  LIGHT = 'light',
 }
 
 export enum SettingButtonPositionEnum {

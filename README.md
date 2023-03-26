@@ -37,13 +37,12 @@
       - [ ] 下发通知
       - [ ] 查看属下人员信息
     - [ ] 普通人员：
-  - [ ] 扫码记录
-    -[ ] 二维码
-      - [ ] 二维码生成
-      - [ ] 扫码跳转
-      - [ ] 扫码记录：
-        - [ ] 人员地点
-        - [ ] 人员信息
+  - [ ] 扫码记录 -[ ] 二维码
+    - [ ] 二维码生成
+    - [ ] 扫码跳转
+    - [ ] 扫码记录：
+      - [ ] 人员地点
+      - [ ] 人员信息
   - [ ] 推送功能：
     - [ ] 疫情防疫消息（需要爬虫抓取）
     - [ ] 通知管理
@@ -62,25 +61,25 @@
 
 技术选型：
 
-1. Springboot后端开发框架
-  1. Mysql 关系型数据库，处理大部分数据
-  2. MongoDB NoSQL 处理文档记录型数据
-  3. 使用 Mysql 数据存储，Mysql->Logstash->ElasticSearch 数据转移，ElasticSearch、IK 分词器提供中文分词文档搜索。
-  4. Mybatis、MybatisPlus、SpringData 持久层框架、它支持自定义 SQL、存储过程以及高级映射。
-  5. 使用 FileBeat + Aspject AOP + ElasticSearch+ Kiana 进行日志收集可视化数据。
-  6. RabbitMQ 消息通知。
-  7. 使用 JWT、SpringSecurity 动态资源权限管理。
-  8. 使用 RESTFul API、Swagger、SpringDoc 框架管理 API 文档，使用 Junit5。
-  9. 进行单元测试、使用 Vue 框架前端后台开发、使用 Nginx 反向代理端口文件。
-  10. Actuator系统监控。
-2. Vue3前端开发框架
-3. 使用 Docker、GitAction 自动化测试构建部署、Git 版本管理、ApiFox接口管理。
-4. Penpot原型设计、Drawio进行数据库ER图设计
+1. Springboot 后端开发框架
+   1. Mysql 关系型数据库，处理大部分数据
+   2. MongoDB NoSQL 处理文档记录型数据
+   3. 使用 Mysql 数据存储，Mysql->Logstash->ElasticSearch 数据转移，ElasticSearch、IK 分词器提供中文分词文档搜索。
+   4. Mybatis、MybatisPlus、SpringData 持久层框架、它支持自定义 SQL、存储过程以及高级映射。
+   5. 使用 FileBeat + Aspject AOP + ElasticSearch+ Kiana 进行日志收集可视化数据。
+   6. RabbitMQ 消息通知。
+   7. 使用 JWT、SpringSecurity 动态资源权限管理。
+   8. 使用 RESTFul API、Swagger、SpringDoc 框架管理 API 文档，使用 Junit5。
+   9. 进行单元测试、使用 Vue 框架前端后台开发、使用 Nginx 反向代理端口文件。
+   10. Actuator 系统监控。
+2. Vue3 前端开发框架
+3. 使用 Docker、GitAction 自动化测试构建部署、Git 版本管理、ApiFox 接口管理。
+4. Penpot 原型设计、Drawio 进行数据库 ER 图设计
 5. Future:
-  1. 微信小程序
-  2. Flutter App框架
-  3. SpringCloud、Kubernetes微服务监控系统管理
-  4. 消息对接、定时消息任务、优化代码、系统管理。
-  5. 事务数据库优化、JVM调优。
+   1. 微信小程序
+   2. Flutter App 框架
+   3. SpringCloud、Kubernetes 微服务监控系统管理
+   4. 消息对接、定时消息任务、优化代码、系统管理。
+   5. 事务数据库优化、JVM 调优。
 
 尽力能做就做吧! 😂

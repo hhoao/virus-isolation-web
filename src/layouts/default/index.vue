@@ -1,11 +1,11 @@
 <template>
-  <Layout :class="prefixCls" v-bind="lockEvents">
+  <Layout :class="prefixCls">
     <LayoutFeatures />
-    <LayoutHeader fixed v-if="getShowFullHeaderRef" />
     <Layout :class="[layoutClass]">
-      <LayoutSideBar v-if="getShowSidebar || getIsMobile" />
+      <LayoutSideBar v-if="getShowSidebar" />
       <Layout :class="`${prefixCls}-main`">
-        <LayoutMultipleHeader />
+        <LayoutMultipleHeader v-if="getShowHeader" />
+        <LayoutTrigger v-if="getShowSidebar" class="fixed z-1" :sider="false" />
         <LayoutContent />
         <LayoutFooter />
       </Layout>
@@ -13,61 +13,28 @@
   </Layout>
 </template>
 
-<script lang="ts">
-  import { defineComponent, computed, unref } from 'vue';
+<script lang="ts" setup>
+  import { computed } from 'vue';
   import { Layout } from 'ant-design-vue';
-  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
 
-  import LayoutHeader from './header/index.vue';
   import LayoutContent from './content/index.vue';
   import LayoutSideBar from './sider/index.vue';
-  import LayoutMultipleHeader from './header/MultipleHeader.vue';
 
   import { useHeaderSetting } from '/@/hooks/setting/useHeaderSetting';
-  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { useLockPage } from '/@/hooks/web/useLockPage';
+  import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
+  import LayoutTrigger from '/@/layouts/default/trigger/index.vue';
+  import LayoutFooter from '/@/layouts/default/footer/index.vue';
+  import LayoutFeatures from '/@/layouts/default/feature/index.vue';
+  import LayoutMultipleHeader from '/@/layouts/default/header/MultipleHeader.vue';
+  const { getShowSidebar } = useMenuSetting();
+  const { getShowHeader } = useHeaderSetting();
 
-  import { useAppInject } from '/@/hooks/web/useAppInject';
+  const { prefixCls } = useDesign('default-layout');
 
-  export default defineComponent({
-    name: 'DefaultLayout',
-    components: {
-      LayoutFeatures: createAsyncComponent(() => import('/@/layouts/default/feature/index.vue')),
-      LayoutFooter: createAsyncComponent(() => import('/@/layouts/default/footer/index.vue')),
-      LayoutHeader,
-      LayoutContent,
-      LayoutSideBar,
-      LayoutMultipleHeader,
-      Layout,
-    },
-    setup() {
-      const { prefixCls } = useDesign('default-layout');
-      const { getIsMobile } = useAppInject();
-      const { getShowFullHeaderRef } = useHeaderSetting();
-      const { getShowSidebar, getIsMixSidebar, getShowMenu } = useMenuSetting();
-
-      // Create a lock screen monitor
-      const lockEvents = useLockPage();
-
-      const layoutClass = computed(() => {
-        let cls: string[] = ['ant-layout'];
-        if (unref(getIsMixSidebar) || unref(getShowMenu)) {
-          cls.push('ant-layout-has-sider');
-        }
-        return cls;
-      });
-
-      return {
-        getShowFullHeaderRef,
-        getShowSidebar,
-        prefixCls,
-        getIsMobile,
-        getIsMixSidebar,
-        layoutClass,
-        lockEvents,
-      };
-    },
+  const layoutClass = computed(() => {
+    let cls: string[] = ['ant-layout'];
+    return cls;
   });
 </script>
 <style lang="less">

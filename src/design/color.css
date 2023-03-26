@@ -1,0 +1,31 @@
+html {
+  /* base */
+  --color: #000000;
+  --text-hover-color: #000000;
+  /* header */
+  --header-bg-color: #ffffff;
+  --header-bg-active-color: #273352;
+  --header-color: #505050;
+  --header-active-color: #273352;
+  --header-desc-color: #fff;
+  --header-bottom-border-color: #fff;
+  --border-color: #fff;
+  /* sider */
+  --sider-bg-color: #fff;
+  --sider-bg-active-color: #f1f2fa;
+  --sider-color: #ebebeb;
+  --sider-border-color: #dbdbdb;
+  --sider-active-color: #ff0000;
+  /* menu */
+  --menu-color: #3f3f3f;
+  --menu-bg-color: #f1f2fa;
+  --menu-hover-color: #7456fb;
+  /* content */
+  --content-bg: #fff;
+  /* logo title */
+  --logo-color: #666666;
+  /* code */
+  --code-color: #fff;
+  --code-bg-color: #e0ffdd;
+  --code-block-bg-color: #dfdfdf;
+}

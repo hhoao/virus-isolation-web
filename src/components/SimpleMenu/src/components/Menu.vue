@@ -26,7 +26,6 @@
   export default defineComponent({
     name: 'Menu',
     props: {
-      theme: propTypes.oneOf(['light', 'dark']).def('light'),
       activeName: propTypes.oneOfType([propTypes.string, propTypes.number]),
       openNames: {
         type: Array as PropType<string[]>,
@@ -60,10 +59,8 @@
       });
 
       const getClass = computed(() => {
-        const { theme } = props;
         return [
           prefixCls,
-          `${prefixCls}-${theme}`,
           `${prefixCls}-vertical`,
           {
             [`${prefixCls}-collapse`]: props.collapse,

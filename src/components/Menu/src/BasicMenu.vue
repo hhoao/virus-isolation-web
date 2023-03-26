@@ -1,19 +1,18 @@
 <template>
   <Menu
-    :selectedKeys="selectedKeys"
-    :defaultSelectedKeys="defaultSelectedKeys"
+    :selected-keys="selectedKeys"
+    :default-selected-keys="defaultSelectedKeys"
     :mode="mode"
-    :openKeys="getOpenKeys"
-    :inlineIndent="inlineIndent"
-    :theme="theme"
-    @open-change="handleOpenChange"
+    :open-keys="getOpenKeys"
+    :inline-indent="inlineIndent"
     :class="getMenuClass"
-    @click="handleMenuClick"
-    :subMenuOpenDelay="0.2"
+    :sub-menu-open-delay="0.2"
     v-bind="getInlineCollapseOptions"
+    @open-change="handleOpenChange"
+    @click="handleMenuClick"
   >
     <template v-for="item in items" :key="item.path">
-      <BasicSubMenuItem :item="item" :theme="theme" :isHorizontal="isHorizontal" />
+      <BasicSubMenuItem :item="item" :is-horizontal="isHorizontal" />
     </template>
   </Menu>
 </template>
@@ -30,9 +29,7 @@
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { REDIRECT_NAME } from '/@/router/constant';
   import { useDesign } from '/@/hooks/web/useDesign';
-  import { getCurrentParentPath } from '/@/router/menus';
   import { listenerRouteChange } from '/@/logics/mitt/routeChange';
-  import { getAllParentPath } from '/@/router/helper/menuHelper';
 
   export default defineComponent({
     name: 'BasicMenu',
@@ -139,13 +136,6 @@
           (route || unref(currentRoute)).path;
         setOpenKeys(path);
         if (unref(currentActiveMenu)) return;
-        if (props.isHorizontal && unref(getSplit)) {
-          const parentPath = await getCurrentParentPath(path);
-          menuState.selectedKeys = [parentPath];
-        } else {
-          const parentPaths = await getAllParentPath(props.items, path);
-          menuState.selectedKeys = parentPaths;
-        }
       }
 
       return {

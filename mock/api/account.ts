@@ -1,27 +1,12 @@
 import type { MockMethod } from 'vite-plugin-mock';
-import {
-  getRequestToken,
-  requestParams,
-  resultError,
-  resultPageSuccess,
-  resultSuccess,
-} from '../_util';
-import { accountList, createFakeUserList, generateToken, getUserByToken } from '../data/user';
-import { GetUserInfoModel } from '/@/api/model/UserModel';
+import { getRequestToken, requestParams, resultError, resultSuccess } from '../_util';
+import { createFakeUserList, generateToken, getUserByToken } from '../data/account';
+import { GetUserInfoModel } from '/@/api/model/AcountModel';
 import { AccountApi } from '/@/api/enum/AccountApi';
 
 const tokenHead = 'Bearer';
 
 export default [
-  {
-    url: AccountApi.AccountPageList,
-    timeout: 100,
-    method: 'get',
-    response: ({ query }) => {
-      const { page = 1, pageSize = 20 } = query;
-      return resultPageSuccess(page, pageSize, accountList);
-    },
-  },
   {
     url: AccountApi.ACCOUNT_INFO,
     timeout: 1000,

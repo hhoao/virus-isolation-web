@@ -1,6 +1,6 @@
 <template>
-  <li :class="getClass" @click.stop="handleClickItem" :style="getCollapse ? {} : getItemStyle">
-    <Tooltip placement="right" v-if="showTooptip">
+  <li :class="getClass" :style="getCollapse ? {} : getItemStyle" @click.stop="handleClickItem">
+    <Tooltip v-if="showTooptip" placement="right">
       <template #title>
         <slot name="title"></slot>
       </template>
@@ -17,20 +17,22 @@
 </template>
 
 <script lang="ts">
-  import { PropType } from 'vue';
-  import { defineComponent, ref, computed, unref, getCurrentInstance, watch } from 'vue';
+  import { computed, defineComponent, getCurrentInstance, PropType, ref, unref, watch } from 'vue';
   import { useDesign } from '/@/hooks/web/useDesign';
   import { propTypes } from '/@/utils/propTypes';
   import { useMenuItem } from './useMenu';
   import { Tooltip } from 'ant-design-vue';
   import { useSimpleRootMenuContext } from './useSimpleMenuContext';
+  import { Menu } from '/@/router/types';
+  import { router } from '/@/router';
+
   export default defineComponent({
     name: 'MenuItem',
     components: { Tooltip },
     props: {
-      name: {
-        type: [String, Number] as PropType<string | number>,
-        required: true,
+      meta: {
+        type: Object as PropType<Menu>,
+        default: () => ({}),
       },
       disabled: propTypes.bool,
     },
@@ -69,7 +71,7 @@
           return;
         }
 
-        rootMenuEmitter.emit('on-menu-item-select', props.name);
+        rootMenuEmitter.emit('on-menu-item-select', props.meta);
         if (unref(getCollapse)) {
           return;
         }
@@ -80,11 +82,35 @@
           parent: instance?.parent,
           uidList: uidList,
         });
+        let anchorName = '';
+        let s = props.meta.name.replaceAll(' ', '-').toLowerCase();
+        for (let ch of s) {
+          let code = ch.charCodeAt(0);
+          if (
+            ch.charCodeAt(0) > 127 ||
+            (code >= 97 && code <= 122) ||
+            (code >= 65 && code <= 90) ||
+            (code >= 48 && code <= 57) ||
+            ch == '-'
+          ) {
+            anchorName += ch;
+          }
+        }
+        const anchor = document.getElementById(anchorName);
+        history.replaceState(
+          router.currentRoute.value.path,
+          '',
+          router.currentRoute.value.path + '#' + anchorName,
+        );
+        if (anchor) {
+          const body = document.body;
+          body.scrollTo({ left: 0, top: anchor.offsetTop, behavior: 'smooth' });
+        }
       }
       watch(
         () => activeName.value,
         (name: string) => {
-          if (name === props.name) {
+          if (name === props.meta?.path) {
             const { list, uidList } = getParentList();
             active.value = true;
             list.forEach((item) => {

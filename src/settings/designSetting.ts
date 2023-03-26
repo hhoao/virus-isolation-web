@@ -1,8 +1,4 @@
-import { ThemeEnum } from '../enums/appEnum';
-
-export const prefixCls = 'virus-isolation';
-
-export const darkMode = ThemeEnum.LIGHT;
+export const prefixCls = 'vi';
 
 // app theme preset color
 export const APP_PRESET_COLOR_LIST: string[] = [

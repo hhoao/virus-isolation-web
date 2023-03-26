@@ -67,10 +67,6 @@ export default {
     splitMenu: 'Split menu',
     closeMixSidebarOnChange: 'Switch page to close menu',
 
-    sysTheme: 'System theme',
-    headerTheme: 'Header theme',
-    sidebarTheme: 'Menu theme',
-
     menuDrag: 'Drag Sidebar',
     menuSearch: 'Menu search',
     menuAccordion: 'Sidebar accordion',

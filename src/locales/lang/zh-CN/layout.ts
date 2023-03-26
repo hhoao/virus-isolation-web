@@ -67,10 +67,6 @@ export default {
     splitMenu: '分割菜单',
     closeMixSidebarOnChange: '切换页面关闭菜单',
 
-    sysTheme: '系统主题',
-    headerTheme: '顶栏主题',
-    sidebarTheme: '菜单主题',
-
     menuDrag: '侧边菜单拖拽',
     menuSearch: '菜单搜索',
     menuAccordion: '侧边菜单手风琴模式',

@@ -1,19 +1,15 @@
 import * as Mock from 'mockjs';
-import { CommentModel } from '/@/api/model/CommentModel';
+import { ArticleCommentModel } from '/@/api/model/ArticleCommentModel';
 
-function getComment() {
-  return {
-    id: Mock.mock('@id'),
-    author: '@name',
-    content: '@sentence',
-    lastModification: Mock.mock('@date("yyyy-MM-dd")'),
-  };
-}
-
-export const commentList = ((): CommentModel[] => {
-  const result: CommentModel[] = [];
+export const commentList = ((): ArticleCommentModel[] => {
+  const result: ArticleCommentModel[] = [];
   for (let index = 0; index < 20; index++) {
-    result.push(getComment());
+    result.push({
+      id: Mock.mock('@id'),
+      author: '@name',
+      content: '@sentence',
+      lastModification: Mock.mock('@date("yyyy-MM-dd")'),
+    });
   }
   return result;
 })();

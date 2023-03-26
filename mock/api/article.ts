@@ -5,22 +5,6 @@ import { ArticleApi } from '/@/api/enum/ArticleApi';
 
 export default [
   {
-    url: ArticleApi.DELETE_ARTICLE,
-    timeout: 100,
-    method: 'delete',
-    response: () => {
-      return resultSuccess();
-    },
-  },
-  {
-    url: ArticleApi.UPDATE_ARTICLE,
-    timeout: 100,
-    method: 'put',
-    response: () => {
-      return resultSuccess();
-    },
-  },
-  {
     url: ArticleApi.GET_ARTICLE_PAGE_LIST,
     timeout: 100,
     method: 'get',

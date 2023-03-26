@@ -1,4 +1,4 @@
-import type { MockMethod } from 'vite-plugin-mock';
+import { MockMethod } from 'vite-plugin-mock';
 import { resultPageSuccess, resultSuccess } from '../_util';
 import { tagList } from '../data/tag';
 import { TagApi } from '/@/api/enum/TagApi';

@@ -2,24 +2,19 @@ import type { UserInfo } from '/#/store';
 import type { ErrorMessageMode } from '/#/axios';
 import { defineStore } from 'pinia';
 import { store } from '/@/store';
-import { RoleEnum } from '/@/enums/roleEnum';
+import { TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 import { PageEnum } from '/@/enums/pageEnum';
-import { ROLES_KEY, TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 import { getAuthCache, setAuthCache } from '/@/utils/auth';
-import { GetUserInfoModel, LoginParams } from '/@/api/model/UserModel';
+import { GetUserInfoModel, LoginParams } from '/@/api/model/AcountModel';
 import { doLogout, getAccountInfo, loginApi } from '/@/api/account';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { router } from '/@/router';
-import { usePermissionStore } from '/@/store/modules/permission';
-import { RouteRecordRaw } from 'vue-router';
-import { PAGE_NOT_FOUND_ROUTE } from '/@/router/routes/basic';
 import { h } from 'vue';
 
 interface UserState {
   userInfo: Nullable<UserInfo>;
   token?: string;
-  role: RoleEnum;
   sessionTimeout?: boolean;
   lastUpdateTime: number;
 }
@@ -31,8 +26,6 @@ export const useUserStore = defineStore({
     userInfo: null,
     // token
     token: undefined,
-    // role
-    role: RoleEnum.ANONYMOUS,
     // Whether the login expired
     sessionTimeout: false,
     // Last fetch time
@@ -44,9 +37,6 @@ export const useUserStore = defineStore({
     },
     getToken(): string {
       return this.token || getAuthCache<string>(TOKEN_KEY);
-    },
-    getRole(): RoleEnum {
-      return this.role;
     },
     getSessionTimeout(): boolean {
       return !!this.sessionTimeout;
@@ -60,10 +50,6 @@ export const useUserStore = defineStore({
       this.token = info ? info : ''; // for null or undefined value
       setAuthCache(TOKEN_KEY, info);
     },
-    setRole(role: RoleEnum) {
-      this.role = role;
-      setAuthCache(ROLES_KEY, role);
-    },
     setUserInfo(info: UserInfo | null) {
       this.userInfo = info;
       this.lastUpdateTime = new Date().getTime();
@@ -75,7 +61,6 @@ export const useUserStore = defineStore({
     resetState() {
       this.userInfo = null;
       this.token = '';
-      this.role = RoleEnum.ANONYMOUS;
       this.sessionTimeout = false;
     },
     /**
@@ -108,15 +93,6 @@ export const useUserStore = defineStore({
       if (sessionTimeout) {
         this.setSessionTimeout(false);
       } else {
-        const permissionStore = usePermissionStore();
-        if (!permissionStore.isDynamicAddedRoute) {
-          const routes = await permissionStore.buildRoutesAction();
-          routes.forEach((route) => {
-            router.addRoute(route as unknown as RouteRecordRaw);
-          });
-          router.addRoute(PAGE_NOT_FOUND_ROUTE as unknown as RouteRecordRaw);
-          permissionStore.setDynamicAddedRoute(true);
-        }
         goHome && (await router.replace(userInfo?.homePath || PageEnum.BASE_HOME));
       }
       return userInfo;
@@ -124,9 +100,6 @@ export const useUserStore = defineStore({
     async getUserInfoAction(): Promise<UserInfo | null> {
       if (!this.getToken) return null;
       const userInfo = await getAccountInfo();
-      const { role = { name: RoleEnum.ANONYMOUS.toString() } } = userInfo;
-      const enumRole: RoleEnum | RoleEnum.ANONYMOUS = (<any>RoleEnum)[role.name];
-      this.setRole(enumRole);
       this.setUserInfo(userInfo);
       return userInfo;
     },

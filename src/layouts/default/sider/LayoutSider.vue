@@ -1,10 +1,6 @@
 <template>
-  <div
-    v-if="getMenuFixed && !getIsMobile"
-    :style="getHiddenDomStyle"
-    v-show="showClassSideBarRef"
-  ></div>
-  <Sider
+  <div v-if="!getIsMobile" v-show="showClassSideBarRef" :style="getHiddenDomStyle"></div>
+  <a-layout-sider
     v-show="showClassSideBarRef"
     ref="sideRef"
     breakpoint="lg"
@@ -12,25 +8,17 @@
     :class="getSiderClass"
     :width="getMenuWidth"
     :collapsed="getCollapsed"
-    :collapsedWidth="getCollapsedWidth"
-    :theme="getMenuTheme"
-    @breakpoint="onBreakpointChange"
-    :trigger="getTrigger"
+    :collapsed-width="getCollapsedWidth"
+    :trigger="null"
     v-bind="getTriggerAttr"
+    @breakpoint="onBreakpointChange"
   >
-    <template #trigger v-if="getShowTrigger">
-      <LayoutTrigger />
-    </template>
-    <LayoutMenu :theme="getMenuTheme" :menuMode="getMode" :splitType="getSplitType" />
+    <LayoutMenu :menu-mode="getMode" :split-type="getSplitType" />
     <DragBar ref="dragBarRef" />
-  </Sider>
+  </a-layout-sider>
 </template>
-<script lang="ts">
-  import { computed, defineComponent, ref, unref, CSSProperties, h } from 'vue';
-
-  import { Layout } from 'ant-design-vue';
-  import LayoutMenu from '../menu/index.vue';
-  import LayoutTrigger from '/@/layouts/default/trigger/index.vue';
+<script lang="ts" setup>
+  import { computed, ref, unref, CSSProperties } from 'vue';
 
   import { MenuModeEnum, MenuSplitTyeEnum } from '/@/enums/menuEnum';
 
@@ -40,103 +28,71 @@
   import { useDesign } from '/@/hooks/web/useDesign';
 
   import DragBar from './DragBar.vue';
-  export default defineComponent({
-    name: 'LayoutSideBar',
-    components: { Sider: Layout.Sider, LayoutMenu, DragBar, LayoutTrigger },
-    setup() {
-      const dragBarRef = ref<ElRef>(null);
-      const sideRef = ref<ElRef>(null);
+  import LayoutMenu from '/@/layouts/default/menu/index.vue';
 
-      const {
-        getCollapsed,
-        getMenuWidth,
-        getSplit,
-        getMenuTheme,
-        getRealWidth,
-        getMenuHidden,
-        getMenuFixed,
-        getIsMixMode,
-        toggleCollapsed,
-      } = useMenuSetting();
+  const dragBarRef = ref<ElRef>(null);
+  const sideRef = ref<ElRef>(null);
 
-      const { prefixCls } = useDesign('layout-sideBar');
+  const { getCollapsed, getMenuWidth, getSplit, getRealWidth, getMenuHidden, getIsMixMode } =
+    useMenuSetting();
 
-      const { getIsMobile } = useAppInject();
+  const { prefixCls } = useDesign('layout-sideBar');
 
-      const { getTriggerAttr, getShowTrigger } = useTrigger(getIsMobile);
+  const { getIsMobile } = useAppInject();
 
-      useDragLine(sideRef, dragBarRef);
+  const { getTriggerAttr } = useTrigger(getIsMobile);
 
-      const { getCollapsedWidth, onBreakpointChange } = useSiderEvent();
+  useDragLine(sideRef, dragBarRef);
 
-      const getMode = computed(() => {
-        return unref(getSplit) ? MenuModeEnum.INLINE : null;
-      });
+  const { getCollapsedWidth, onBreakpointChange } = useSiderEvent();
 
-      const getSplitType = computed(() => {
-        return unref(getSplit) ? MenuSplitTyeEnum.LEFT : MenuSplitTyeEnum.NONE;
-      });
+  const getMode = computed(() => {
+    return unref(getSplit) ? MenuModeEnum.INLINE : null;
+  });
 
-      const showClassSideBarRef = computed(() => {
-        return unref(getSplit) ? !unref(getMenuHidden) : true;
-      });
+  const getSplitType = computed(() => {
+    return unref(getSplit) ? MenuSplitTyeEnum.LEFT : MenuSplitTyeEnum.NONE;
+  });
 
-      const getSiderClass = computed(() => {
-        return [
-          prefixCls,
-          {
-            [`${prefixCls}--fixed`]: unref(getMenuFixed),
-            [`${prefixCls}--mix`]: unref(getIsMixMode) && !unref(getIsMobile),
-          },
-        ];
-      });
+  const showClassSideBarRef = computed(() => {
+    return unref(getSplit) ? !unref(getMenuHidden) : true;
+  });
 
-      const getHiddenDomStyle = computed((): CSSProperties => {
-        const width = `${unref(getRealWidth)}px`;
-        return {
-          width: width,
-          overflow: 'hidden',
-          flex: `0 0 ${width}`,
-          maxWidth: width,
-          minWidth: width,
-          transition: 'all 0.2s',
-        };
-      });
+  const getSiderClass = computed(() => {
+    return [
+      prefixCls,
+      {
+        [`${prefixCls}--fixed`]: true,
+        [`${prefixCls}--mix`]: unref(getIsMixMode) && !unref(getIsMobile),
+      },
+    ];
+  });
 
-      // 在此处使用计算量可能会导致sider异常
-      // andv 更新后，如果trigger插槽可用，则此处代码可废弃
-      const getTrigger = h(LayoutTrigger);
-
-      return {
-        prefixCls,
-        sideRef,
-        dragBarRef,
-        getIsMobile,
-        getHiddenDomStyle,
-        getSiderClass,
-        getTrigger,
-        getTriggerAttr,
-        getCollapsedWidth,
-        getMenuFixed,
-        showClassSideBarRef,
-        getMenuWidth,
-        getCollapsed,
-        getMenuTheme,
-        onBreakpointChange,
-        getMode,
-        getSplitType,
-        getShowTrigger,
-        toggleCollapsed,
-      };
-    },
+  const getHiddenDomStyle = computed((): CSSProperties => {
+    const width = `${unref(getRealWidth)}px`;
+    return {
+      width: width,
+      overflow: 'hidden',
+      flex: `0 0 ${width}`,
+      maxWidth: width,
+      minWidth: width,
+      transition: 'all 0.2s',
+    };
   });
 </script>
-<style lang="less">
+<style lang="less" scoped>
   @prefix-cls: ~'@{namespace}-layout-sideBar';
 
   .@{prefix-cls} {
+    //border-right: 2px @sider-border-color solid;
+    --tw-shadow: 0 1px 3px 0 rgb(0 0 0/0.1), 0 1px 2px -1px rgb(0 0 0/0.1);
+    --tw-shadow-colored: 0 1px 3px 0 var(--tw-shadow-color), 0 1px 2px -1px var(--tw-shadow-color);
     z-index: @layout-sider-fixed-z-index;
-    background-color: @sider-dark-bg-color !important;
+    background-color: @sider-bg-color !important;
+    -webkit-box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+      var(--tw-shadow);
+    box-shadow: var(--tw-ring-offset-shadow, 0 0 #0000), var(--tw-ring-shadow, 0 0 #0000),
+      var(--tw-shadow);
 
     &--fixed {
       position: fixed;
@@ -148,39 +104,6 @@
     &--mix {
       top: @header-height;
       height: calc(100% - @header-height);
-    }
-
-    &.ant-layout-sider-light {
-      .ant-layout-sider-trigger {
-        color: lighten(@black, 25%);
-        background-color: @trigger-dark-bg-color;
-
-        &:hover {
-          color: @black;
-          background-color: @trigger-dark-hover-bg-color;
-        }
-      }
-    }
-
-    &.ant-layout-sider-dark {
-      .ant-layout-sider-trigger {
-        color: darken(@white, 25%);
-        background-color: @trigger-dark-bg-color;
-
-        &:hover {
-          color: @white;
-          background-color: @trigger-dark-hover-bg-color;
-        }
-      }
-    }
-
-    &:not(.ant-layout-sider-dark) {
-      // box-shadow: 2px 0 8px 0 rgba(29, 35, 41, 0.05);
-
-      .ant-layout-sider-trigger {
-        color: @text-color-base;
-        border-top: 1px solid @border-color-light;
-      }
     }
 
     .ant-layout-sider-zero-width-trigger {

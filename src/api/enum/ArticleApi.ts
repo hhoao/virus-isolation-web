@@ -1,6 +1,4 @@
 export enum ArticleApi {
-  GET_ARTICLE_PAGE_LIST = '/v1/articles',
-  ADD_ARTICLE = '/v1/articles',
-  UPDATE_ARTICLE = '/v1/articles/:articleId',
-  DELETE_ARTICLE = '/v1/articles/:articleId',
+  GET_ARTICLE_PAGE_LIST = '/s1/articles',
+  SEARCH_ARTICLE = '/s1/search/articles',
 }

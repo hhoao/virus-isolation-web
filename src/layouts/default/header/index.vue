@@ -3,53 +3,27 @@
     <!-- left start -->
     <div :class="`${prefixCls}-left`">
       <!-- logo -->
-      <AppLogo
-        v-if="getShowHeaderLogo || getIsMobile"
-        :class="`${prefixCls}-logo`"
-        :theme="getHeaderTheme"
-        :style="getLogoWidth"
-      />
+      <AppLogo v-if="true" :class="`${prefixCls}-logo`" :style="getLogoWidth" />
       <LayoutTrigger
         v-if="
-          (getShowContent && getShowHeaderTrigger && !getSplit && !getIsMixSidebar) || getIsMobile
+          getShowContent && getShowHeaderTrigger && !getSplit && !getIsMixSidebar && getShowSidebar
         "
-        :theme="getHeaderTheme"
         :sider="false"
       />
-      <LayoutBreadcrumb v-if="getShowContent && getShowBread" :theme="getHeaderTheme" />
+      <LayoutBreadcrumb v-if="getShowContent && getShowBread" />
     </div>
     <!-- left end -->
-
-    <!-- menu start -->
-    <div :class="`${prefixCls}-menu`" v-if="getShowTopMenu && !getIsMobile">
-      <LayoutMenu
-        :isHorizontal="true"
-        :theme="getHeaderTheme"
-        :splitType="getSplitType"
-        :menuMode="getMenuMode"
-      />
-    </div>
-    <!-- menu-end -->
-
     <!-- action  -->
     <div :class="`${prefixCls}-action`">
-      <AppSearch :class="`${prefixCls}-action__item `" v-if="getShowSearch" />
-
-      <ErrorAction v-if="getUseErrorHandle" :class="`${prefixCls}-action__item error-action`" />
-
-      <Notify v-if="getShowNotice" :class="`${prefixCls}-action__item notify-item`" />
-
+      <AppSearch v-if="getShowSearch" :class="`${prefixCls}-action__item `" />
       <FullScreen v-if="getShowFullScreen" :class="`${prefixCls}-action__item fullscreen-item`" />
 
       <AppLocalePicker
         v-if="getShowLocalePicker"
         :reload="true"
-        :showText="false"
+        :show-text="false"
         :class="`${prefixCls}-action__item`"
       />
-
-      <UserDropDown :theme="getHeaderTheme" />
-
       <SettingDrawer v-if="getShowSetting" :class="`${prefixCls}-action__item`" />
     </div>
   </Header>
@@ -61,7 +35,6 @@
 
   import { Layout } from 'ant-design-vue';
   import { AppLogo } from '/@/components/Application';
-  import LayoutMenu from '../menu/index.vue';
   import LayoutTrigger from '../trigger/index.vue';
 
   import { AppSearch } from '/@/components/Application';
@@ -74,7 +47,7 @@
   import { SettingButtonPositionEnum } from '/@/enums/appEnum';
   import { AppLocalePicker } from '/@/components/Application';
 
-  import { UserDropDown, LayoutBreadcrumb, FullScreen, Notify, ErrorAction } from './components';
+  import { LayoutBreadcrumb, FullScreen } from './components';
   import { useAppInject } from '/@/hooks/web/useAppInject';
   import { useDesign } from '/@/hooks/web/useDesign';
 
@@ -88,13 +61,9 @@
       AppLogo,
       LayoutTrigger,
       LayoutBreadcrumb,
-      LayoutMenu,
-      UserDropDown,
       AppLocalePicker,
       FullScreen,
-      Notify,
       AppSearch,
-      ErrorAction,
       SettingDrawer: createAsyncComponent(() => import('/@/layouts/default/setting/index.vue'), {
         loading: true,
       }),
@@ -111,14 +80,13 @@
         getIsMixMode,
         getMenuWidth,
         getIsMixSidebar,
+        getShowSidebar,
       } = useMenuSetting();
       const { getUseErrorHandle, getShowSettingButton, getSettingButtonPosition } =
         useRootSetting();
 
       const {
-        getHeaderTheme,
         getShowFullScreen,
-        getShowNotice,
         getShowContent,
         getShowBread,
         getShowHeaderLogo,
@@ -131,13 +99,11 @@
       const { getIsMobile } = useAppInject();
 
       const getHeaderClass = computed(() => {
-        const theme = unref(getHeaderTheme);
         return [
           prefixCls,
           {
             [`${prefixCls}--fixed`]: props.fixed,
             [`${prefixCls}--mobile`]: unref(getIsMobile),
-            [`${prefixCls}--${theme}`]: theme,
           },
         ];
       });
@@ -174,7 +140,6 @@
         prefixCls,
         getHeaderClass,
         getShowHeaderLogo,
-        getHeaderTheme,
         getShowHeaderTrigger,
         getIsMobile,
         getShowBread,
@@ -185,13 +150,13 @@
         getShowTopMenu,
         getShowLocalePicker,
         getShowFullScreen,
-        getShowNotice,
         getUseErrorHandle,
         getLogoWidth,
         getIsMixSidebar,
         getShowSettingButton,
         getShowSetting,
         getShowSearch,
+        getShowSidebar,
       };
     },
   });

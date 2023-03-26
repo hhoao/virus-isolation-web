@@ -1,22 +1,33 @@
 <template>
-  <SiderTrigger v-if="sider" />
-  <HeaderTrigger v-else :theme="theme" />
+  <div :class="[prefixCls]">
+    <SiderTrigger v-if="sider" />
+    <HeaderTrigger v-else />
+  </div>
 </template>
-<script lang="ts">
-  import { defineComponent } from 'vue';
-  import { createAsyncComponent } from '/@/utils/factory/createAsyncComponent';
+<script lang="ts" setup>
   import { propTypes } from '/@/utils/propTypes';
   import HeaderTrigger from './HeaderTrigger.vue';
+  import SiderTrigger from '/@/layouts/default/trigger/SiderTrigger.vue';
+  import { useDesign } from '/@/hooks/web/useDesign';
 
-  export default defineComponent({
-    name: 'LayoutTrigger',
-    components: {
-      SiderTrigger: createAsyncComponent(() => import('./SiderTrigger.vue')),
-      HeaderTrigger: HeaderTrigger,
-    },
-    props: {
-      sider: propTypes.bool.def(true),
-      theme: propTypes.oneOf(['light', 'dark']),
-    },
+  defineProps({
+    sider: propTypes.bool.def(true),
   });
+  const { prefixCls } = useDesign('layout-trigger');
 </script>
+<style lang="less">
+  @prefix-cls: ~'@{namespace}-layout-trigger';
+  .@{prefix-cls} {
+    &:hover {
+      border: 1px #b1b1b1 solid;
+      transition: border-color 1000ms;
+      cursor: pointer;
+    }
+
+    svg {
+      margin: 10px;
+      height: 16px;
+      width: 16px;
+    }
+  }
+</style>

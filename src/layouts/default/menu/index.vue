@@ -1,7 +1,6 @@
 <script lang="tsx">
-  import type { PropType, CSSProperties } from 'vue';
-
-  import { computed, defineComponent, unref, toRef } from 'vue';
+  import type { CSSProperties, PropType } from 'vue';
+  import { computed, defineComponent, unref } from 'vue';
   import { BasicMenu } from '/@/components/Menu';
   import { SimpleMenu } from '/@/components/SimpleMenu';
   import { AppLogo } from '/@/components/Application';
@@ -10,21 +9,19 @@
 
   import { useMenuSetting } from '/@/hooks/setting/useMenuSetting';
   import { ScrollContainer } from '/@/components/Container';
-
-  import { useGo } from '/@/hooks/web/usePage';
-  import { useSplitMenu } from './useLayoutMenu';
   import { openWindow } from '/@/utils';
   import { propTypes } from '/@/utils/propTypes';
   import { isUrl } from '/@/utils/is';
   import { useRootSetting } from '/@/hooks/setting/useRootSetting';
   import { useAppInject } from '/@/hooks/web/useAppInject';
   import { useDesign } from '/@/hooks/web/useDesign';
+  import { useMenuStoreWithOut } from '/@/store/modules/menu';
+  import { router } from '/@/router';
+  import { Menu } from '/@/router/types';
 
   export default defineComponent({
     name: 'LayoutMenu',
     props: {
-      theme: propTypes.oneOf(['light', 'dark']),
-
       splitType: {
         type: Number as PropType<MenuSplitTyeEnum>,
         default: MenuSplitTyeEnum.NONE,
@@ -38,12 +35,9 @@
       },
     },
     setup(props) {
-      const go = useGo();
-
       const {
         getMenuMode,
         getMenuType,
-        getMenuTheme,
         getCollapsed,
         getCollapsedShowTitle,
         getAccordion,
@@ -55,15 +49,13 @@
 
       const { prefixCls } = useDesign('layout-menu');
 
-      const { menusRef } = useSplitMenu(toRef(props, 'splitType'));
+      let menusRef = computed(() => useMenuStoreWithOut().getMenus);
 
       const { getIsMobile } = useAppInject();
 
       const getComputedMenuMode = computed(() =>
         unref(getIsMobile) ? MenuModeEnum.INLINE : props.menuMode || unref(getMenuMode),
       );
-
-      const getComputedMenuTheme = computed(() => props.theme || unref(getMenuTheme));
 
       const getIsShowLogo = computed(() => unref(getShowLogo) && unref(getIsSidebarType));
 
@@ -85,7 +77,6 @@
       const getLogoClass = computed(() => {
         return [
           `${prefixCls}-logo`,
-          unref(getComputedMenuTheme),
           {
             [`${prefixCls}--mobile`]: unref(getIsMobile),
           },
@@ -93,12 +84,11 @@
       });
 
       const getCommonProps = computed(() => {
-        const menus = unref(menusRef);
+        const menus = menusRef;
         return {
           menus,
           beforeClickFn: beforeMenuClickFn,
           items: menus,
-          theme: unref(getComputedMenuTheme),
           accordion: unref(getAccordion),
           collapse: unref(getCollapsed),
           collapsedShowTitle: unref(getCollapsedShowTitle),
@@ -110,8 +100,31 @@
        * @param menu
        */
 
-      function handleMenuClick(path: string) {
-        go(path);
+      function handleMenuClick(menu: Menu) {
+        let anchorName = '';
+        let s = menu.name.replaceAll(' ', '-').toLowerCase();
+        for (let ch of s) {
+          let code = ch.charCodeAt(0);
+          if (
+            ch.charCodeAt(0) > 127 ||
+            (code >= 97 && code <= 122) ||
+            (code >= 65 && code <= 90) ||
+            (code >= 48 && code <= 57) ||
+            ch == '-'
+          ) {
+            anchorName += ch;
+          }
+        }
+        const anchor = document.getElementById(anchorName);
+        history.replaceState(
+          router.currentRoute.value.path,
+          '',
+          router.currentRoute.value.path + '#' + anchorName,
+        );
+        if (anchor) {
+          const body = document.body;
+          body.scrollTo({ left: 0, top: anchor.offsetTop, behavior: 'smooth' });
+        }
       }
 
       /**
@@ -129,20 +142,15 @@
       function renderHeader() {
         if (!unref(getIsShowLogo) && !unref(getIsMobile)) return null;
 
-        return (
-          <AppLogo
-            showTitle={!unref(getCollapsed)}
-            class={unref(getLogoClass)}
-            theme={unref(getComputedMenuTheme)}
-          />
-        );
+        return <AppLogo showTitle={!unref(getCollapsed)} class={unref(getLogoClass)} />;
       }
 
       function renderMenu() {
         const { menus, ...menuProps } = unref(getCommonProps);
-        if (!menus || !menus.length) return null;
+        // console.log(menus);
+        if (!menus.value || !menus.value.length) return null;
         return !props.isHorizontal ? (
-          <SimpleMenu {...menuProps} isSplitMenu={unref(getSplit)} items={menus} />
+          <SimpleMenu {...menuProps} isSplitMenu={unref(getSplit)} items={menus.value} />
         ) : (
           <BasicMenu
             {...(menuProps as any)}
@@ -150,7 +158,7 @@
             type={unref(getMenuType)}
             showLogo={unref(getIsShowLogo)}
             mode={unref(getComputedMenuMode as any)}
-            items={menus}
+            items={menus.value}
           />
         );
       }

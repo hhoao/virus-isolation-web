@@ -1,5 +1,5 @@
 // github repo url
-export const GITHUB_URL = 'https://github.com/HHoao/virus-isolation';
+export const GITHUB_URL = 'https://github.com/hhoao/virus-isolation-web';
 
 export const DOC_URL = '';
 

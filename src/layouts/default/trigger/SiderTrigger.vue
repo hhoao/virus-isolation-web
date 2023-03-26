@@ -1,8 +1,8 @@
 <template>
-  <div @click.stop="toggleCollapsed">
+  <button @click="toggleCollapsedCopy">
     <DoubleRightOutlined v-if="getCollapsed" />
     <DoubleLeftOutlined v-else />
-  </div>
+  </button>
 </template>
 <script lang="ts">
   import { defineComponent } from 'vue';
@@ -15,7 +15,11 @@
     setup() {
       const { getCollapsed, toggleCollapsed } = useMenuSetting();
 
-      return { getCollapsed, toggleCollapsed };
+      function toggleCollapsedCopy() {
+        console.log('toggle');
+        toggleCollapsed();
+      }
+      return { getCollapsed, toggleCollapsed, toggleCollapsedCopy };
     },
   });
 </script>

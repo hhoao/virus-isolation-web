@@ -1,10 +1,9 @@
-import { MenuTypeEnum, MenuModeEnum, TriggerEnum, MixSidebarTriggerEnum } from '/@/enums/menuEnum';
+import { MenuModeEnum, MenuTypeEnum, MixSidebarTriggerEnum, TriggerEnum } from '/@/enums/menuEnum';
 import {
   ContentEnum,
-  ThemeEnum,
   RouterTransitionEnum,
-  SettingButtonPositionEnum,
   SessionTimeoutProcessingEnum,
+  SettingButtonPositionEnum,
 } from '/@/enums/appEnum';
 
 import { CacheTypeEnum } from '/@/enums/cacheEnum';
@@ -22,7 +21,6 @@ export interface MenuSetting {
   menuWidth: number;
   mode: MenuModeEnum;
   type: MenuTypeEnum;
-  theme: ThemeEnum;
   topMenuAlign: 'start' | 'center' | 'end';
   trigger: TriggerEnum;
   accordion: boolean;
@@ -45,15 +43,10 @@ export interface HeaderSetting {
   bgColor: string;
   fixed: boolean;
   show: boolean;
-  theme: ThemeEnum;
   // Turn on full screen
   showFullScreen: boolean;
-  // Whether to show the lock screen
-  useLockPage: boolean;
   // Show document button
   showDoc: boolean;
-  // Show message center button
-  showNotice: boolean;
   showSearch: boolean;
 }
 
@@ -83,8 +76,6 @@ export interface ProjectConfig {
   permissionCacheType: CacheTypeEnum;
   // Whether to show the configuration button
   showSettingButton: boolean;
-  // Whether to show the theme switch button
-  showDarkModeToggle: boolean;
   // Configure where the button is displayed
   settingButtonPosition: SettingButtonPositionEnum;
   // Session timeout processing
@@ -93,9 +84,6 @@ export interface ProjectConfig {
   grayMode: boolean;
   // Whether to turn on the color weak mode
   colorWeak: boolean;
-  // Theme color
-  themeColor: string;
-
   // The main interface is displayed in full screen, the menu is not displayed, and the top
   fullContent: boolean;
   // content width
@@ -108,14 +96,10 @@ export interface ProjectConfig {
   headerSetting: HeaderSetting;
   // menuSetting
   menuSetting: MenuSetting;
-  // Multi-tab settings
-  multiTabsSetting: MultiTabsSetting;
   // Animation configuration
   transitionSetting: TransitionSetting;
   // pageLayout whether to enable keep-alive
   openKeepAlive: boolean;
-  // Lock screen time
-  lockTime: number;
   // Show breadcrumbs
   showBreadCrumb: boolean;
   // Show breadcrumb icon

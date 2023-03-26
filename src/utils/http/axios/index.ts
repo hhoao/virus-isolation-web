@@ -11,13 +11,12 @@ import { useGlobSetting } from '/@/hooks/setting';
 import { useMessage } from '/@/hooks/web/useMessage';
 import { ContentTypeEnum, RequestEnum, ResultEnum } from '/@/enums/httpEnum';
 import { isMap, isObject, isString } from '/@/utils/is';
-import { getToken } from '/@/utils/auth';
 import { deepMerge, setObjToUrlParams } from '/@/utils';
 import { useErrorLogStoreWithOut } from '/@/store/modules/errorLog';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { formatRequestDate, joinTimestamp } from './helper';
-import { useUserStoreWithOut } from '/@/store/modules/user';
 import { AxiosRetry } from '/@/utils/http/axios/axiosRetry';
+import { getToken } from '/@/utils/auth';
 
 const globSetting = useGlobSetting();
 const urlPrefix = globSetting.urlPrefix;
@@ -67,9 +66,6 @@ const transform: AxiosTransform = {
     switch (code) {
       case ResultEnum.TIMEOUT:
         timeoutMsg = t('sys.api.timeoutMessage');
-        const userStore = useUserStoreWithOut();
-        userStore.setToken(undefined);
-        userStore.logout(true);
         break;
       default:
         if (message) {
@@ -163,6 +159,13 @@ const transform: AxiosTransform = {
   },
 
   /**
+   * @description: 响应拦截器处理
+   */
+  responseInterceptors: (res: AxiosResponse<any>) => {
+    return res;
+  },
+
+  /**
    * @description: 请求拦截器处理
    */
   requestInterceptors: (config, options) => {
@@ -176,14 +179,6 @@ const transform: AxiosTransform = {
     }
     return config;
   },
-
-  /**
-   * @description: 响应拦截器处理
-   */
-  responseInterceptors: (res: AxiosResponse<any>) => {
-    return res;
-  },
-
   /**
    * @description: 响应错误处理
    */

@@ -7,6 +7,8 @@ import { useAppStore } from '/@/store/modules/app';
 import { SIDE_BAR_MINI_WIDTH, SIDE_BAR_SHOW_TIT_MINI_WIDTH } from '/@/enums/appEnum';
 import { MenuModeEnum, MenuTypeEnum, TriggerEnum } from '/@/enums/menuEnum';
 import { useFullContent } from '/@/hooks/web/useFullContent';
+import { router } from '/@/router';
+import { PageEnum } from '/@/enums/pageEnum';
 
 const mixSideHasChildren = ref(false);
 
@@ -17,7 +19,9 @@ export function useMenuSetting() {
   const getShowSidebar = computed(() => {
     return (
       unref(getSplit) ||
-      (unref(getShowMenu) && unref(getMenuMode) !== MenuModeEnum.HORIZONTAL && !unref(fullContent))
+      (unref(getMenuMode) !== MenuModeEnum.HORIZONTAL &&
+        !unref(fullContent) &&
+        router.currentRoute.value.path.startsWith(PageEnum.ARTICLE_PAGE))
     );
   });
 
@@ -27,17 +31,13 @@ export function useMenuSetting() {
 
   const getMenuMode = computed(() => appStore.getMenuSetting.mode);
 
-  const getMenuFixed = computed(() => appStore.getMenuSetting.fixed);
-
-  const getShowMenu = computed(() => appStore.getMenuSetting.show);
+  const getShowMenu = computed(() => appStore.getMenuSetting.show && getShowSidebar.value);
 
   const getMenuHidden = computed(() => appStore.getMenuSetting.hidden);
 
   const getMenuWidth = computed(() => appStore.getMenuSetting.menuWidth);
 
   const getTrigger = computed(() => appStore.getMenuSetting.trigger);
-
-  const getMenuTheme = computed(() => appStore.getMenuSetting.theme);
 
   const getSplit = computed(() => appStore.getMenuSetting.split);
 
@@ -52,10 +52,6 @@ export function useMenuSetting() {
   const getMixSideFixed = computed(() => appStore.getMenuSetting.mixSideFixed);
 
   const getTopMenuAlign = computed(() => appStore.getMenuSetting.topMenuAlign);
-
-  const getCloseMixSidebarOnChange = computed(
-    () => appStore.getMenuSetting.closeMixSidebarOnChange,
-  );
 
   const getIsSidebarType = computed(() => unref(getMenuType) === MenuTypeEnum.SIDEBAR);
 
@@ -132,7 +128,6 @@ export function useMenuSetting() {
 
     toggleCollapsed,
 
-    getMenuFixed,
     getRealWidth,
     getMenuType,
     getMenuMode,
@@ -143,7 +138,6 @@ export function useMenuSetting() {
     getMenuWidth,
     getTrigger,
     getSplit,
-    getMenuTheme,
     getCanDrag,
     getCollapsedShowTitle,
     getIsHorizontal,
@@ -158,7 +152,6 @@ export function useMenuSetting() {
     getShowSidebar,
     getIsMixMode,
     getIsMixSidebar,
-    getCloseMixSidebarOnChange,
     getMixSideTrigger,
     getMixSideFixed,
     mixSideHasChildren,

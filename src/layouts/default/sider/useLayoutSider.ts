@@ -56,10 +56,10 @@ export function useTrigger(getIsMobile: Ref<boolean>) {
 
 /**
  * Handle menu drag and drop related operations
- * @param siderRef
+ * @param sliderRef
  * @param dragBarRef
  */
-export function useDragLine(siderRef: Ref<any>, dragBarRef: Ref<any>, mix = false) {
+export function useDragLine(sliderRef: Ref<any>, dragBarRef: Ref<any>, mix = false) {
   const { getMiniWidthNumber, getCollapsed, setMenuSetting } = useMenuSetting();
 
   onMounted(() => {
@@ -94,7 +94,7 @@ export function useDragLine(siderRef: Ref<any>, dragBarRef: Ref<any>, mix = fals
 
   // Drag and drop in the menu area-release the mouse
   function removeMouseup(ele: any) {
-    const wrap = getEl(siderRef);
+    const wrap = getEl(sliderRef);
     document.onmouseup = function () {
       document.onmousemove = null;
       document.onmouseup = null;
@@ -121,7 +121,7 @@ export function useDragLine(siderRef: Ref<any>, dragBarRef: Ref<any>, mix = fals
   function changeWrapWidth() {
     const ele = getEl(dragBarRef);
     if (!ele) return;
-    const wrap = getEl(siderRef);
+    const wrap = getEl(sliderRef);
     if (!wrap) return;
 
     ele.onmousedown = (e: any) => {

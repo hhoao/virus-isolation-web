@@ -1,16 +1,32 @@
 import { defHttp } from '/@/utils/http/axios';
-
-import { ArticlePageParams, ArticleParam } from '/@/api/model/ArticleModel';
+import {
+  BaseArticleModel,
+  DetailArticleModel,
+  DetailArticleModelPageParams,
+  SearchArticleModel,
+  SearchArticlePageParams,
+} from '/@/api/model/DetailArticleModel';
+import { BasicFetchPageResult } from '/@/api/model/BaseModel';
 import { ArticleApi } from '/@/api/enum/ArticleApi';
-import { PathVariables } from '/#/axios';
 
-export const getArticlePageListApi = (params: ArticlePageParams = { pageNum: 1, pageSize: 5 }) =>
-  defHttp.get({ url: ArticleApi.GET_ARTICLE_PAGE_LIST, params });
+export const getBaseArticlePageListApi = (
+  params: DetailArticleModelPageParams = { pageNum: 1, pageSize: 5 },
+) =>
+  defHttp.get<BasicFetchPageResult<BaseArticleModel>>({
+    url: ArticleApi.GET_ARTICLE_PAGE_LIST,
+    params: params ? Object.assign(params, { base: true }) : { base: true },
+  });
 
-export const addArticleApi = (params: ArticleParam) =>
-  defHttp.post({ url: ArticleApi.ADD_ARTICLE, params });
+export const getDetailsArticles = (
+  params: DetailArticleModelPageParams = { pageNum: 1, pageSize: 5 },
+) =>
+  defHttp.get<BasicFetchPageResult<DetailArticleModel>>({
+    url: ArticleApi.GET_ARTICLE_PAGE_LIST,
+    params: params ? Object.assign(params, { base: false }) : { base: false },
+  });
 
-export const updateArticleApi = (pathVariables: PathVariables, params?: ArticleParam) =>
-  defHttp.put({ url: ArticleApi.UPDATE_ARTICLE, params }, { pathVariables });
-export const deleteArticleApi = (pathVariables: PathVariables, params?: ArticleParam) =>
-  defHttp.delete({ url: ArticleApi.DELETE_ARTICLE, params }, { pathVariables });
+export const searchArticle = (params: SearchArticlePageParams) =>
+  defHttp.get<BasicFetchPageResult<SearchArticleModel>>({
+    url: ArticleApi.SEARCH_ARTICLE,
+    params: params,
+  });

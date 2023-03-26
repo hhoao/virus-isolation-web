@@ -1,5 +1,4 @@
 import { defineConfig } from 'vite-plugin-windicss';
-import { primaryColor } from './build/config/themeConfig';
 
 export default defineConfig({
   darkMode: 'class',
@@ -8,9 +7,6 @@ export default defineConfig({
     extend: {
       zIndex: {
         '-1': '-1',
-      },
-      colors: {
-        primary: primaryColor,
       },
       screens: {
         sm: '576px',

@@ -1,5 +1,5 @@
+import { BaseArticleModel, DetailArticleModel } from '/@/api/model/DetailArticleModel';
 import * as Mock from 'mockjs';
-import { ArticleModel, BaseArticleModel } from '/@/api/model/ArticleModel';
 
 function getMarkdownContent() {
   return (
@@ -58,7 +58,7 @@ function getMarkdownContent() {
     '[This is a anchor](#MarkDownContent Title1)'
   );
 }
-export const getDetailsArticle = (): ArticleModel => {
+export const getDetailsArticle = (): DetailArticleModel => {
   return {
     id: Mock.mock('@id'),
     title: '@ctitle',
@@ -70,7 +70,7 @@ export const getDetailsArticle = (): ArticleModel => {
     level: Mock.mock('@integer(0, 1)'),
     lastModification: '@date("yyyy-MM-dd")',
     readingAmount: Mock.mock('@integer'),
-    visible: Mock.mock('@boolean'),
+    visible: true,
     content: getMarkdownContent(),
   };
 };
@@ -100,12 +100,12 @@ export const simplerArticleList = ((): BaseArticleModel[] => {
   return result;
 })();
 
-export const detailsArticle = ((): ArticleModel => {
+export const detailsArticle = ((): DetailArticleModel => {
   return getDetailsArticle();
 })();
 
-export const detailsArticleList = ((): ArticleModel[] => {
-  const result: ArticleModel[] = [];
+export const detailsArticleList = ((): DetailArticleModel[] => {
+  const result: DetailArticleModel[] = [];
   for (let i = 0; i < 10; i++) {
     result.push(getDetailsArticle());
   }

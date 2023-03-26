@@ -3,29 +3,28 @@ import vue from '@vitejs/plugin-vue';
 import vueJsx from '@vitejs/plugin-vue-jsx';
 import legacy from '@vitejs/plugin-legacy';
 import purgeIcons from 'vite-plugin-purge-icons';
-import windiCSS from 'vite-plugin-windicss';
 import VitePluginCertificate from 'vite-plugin-mkcert';
 import vueSetupExtend from 'vite-plugin-vue-setup-extend';
 import { configHtmlPlugin } from './html';
 import { configPwaConfig } from './pwa';
-import { configMockPlugin } from './mock';
 import { configCompressPlugin } from './compress';
 import { configStyleImportPlugin } from './styleImport';
 import { configVisualizerConfig } from './visualizer';
-import { configThemePlugin } from './theme';
 import { configImageminPlugin } from './imagemin';
 import { configSvgIconsPlugin } from './svgSprite';
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
-import fullImportPlugin from './fullImportComponent';
+// import fullImportPlugin from './fullImportComponent';
+import windiCSS from 'vite-plugin-windicss';
+import { configMockPlugin } from './mock';
 
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   const {
     VITE_USE_IMAGEMIN,
-    VITE_USE_MOCK,
     VITE_LEGACY,
     VITE_BUILD_COMPRESS,
     VITE_BUILD_COMPRESS_DELETE_ORIGIN_FILE,
+    VITE_USE_MOCK,
   } = viteEnv;
 
   const vitePlugins: (PluginOption | PluginOption[])[] = [
@@ -63,9 +62,11 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
 
   // rollup-plugin-visualizer
   vitePlugins.push(configVisualizerConfig());
-
-  // vite-plugin-theme
-  vitePlugins.push(configThemePlugin(isBuild));
+  vitePlugins.push(
+    Components({
+      resolvers: [AntDesignVueResolver()],
+    }),
+  );
 
   // The following plugins only work in the production environment
   if (isBuild) {
@@ -79,13 +80,8 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
 
     // vite-plugin-pwa
     vitePlugins.push(configPwaConfig(viteEnv));
-    vitePlugins.push(
-      Components({
-        resolvers: [AntDesignVueResolver()],
-      }),
-    );
   } else {
-    vitePlugins.push(fullImportPlugin());
+    // vitePlugins.push(fullImportPlugin());
   }
 
   return vitePlugins;

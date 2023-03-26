@@ -3,21 +3,15 @@ import { MenuTypeEnum, MenuModeEnum, TriggerEnum, MixSidebarTriggerEnum } from '
 import { CacheTypeEnum } from '/@/enums/cacheEnum';
 import {
   ContentEnum,
-  ThemeEnum,
   RouterTransitionEnum,
   SettingButtonPositionEnum,
   SessionTimeoutProcessingEnum,
 } from '/@/enums/appEnum';
 import { SIDE_BAR_BG_COLOR_LIST, HEADER_PRESET_BG_COLOR_LIST } from './designSetting';
-import { primaryColor } from '../../build/config/themeConfig';
-
 // ! You need to clear the browser cache after the change
 const setting: ProjectConfig = {
   // Whether to show the configuration button
   showSettingButton: true,
-
-  // Whether to show the theme switch button
-  showDarkModeToggle: true,
 
   // `Settings` button position
   settingButtonPosition: SettingButtonPositionEnum.AUTO,
@@ -27,9 +21,6 @@ const setting: ProjectConfig = {
 
   // Session timeout processing
   sessionTimeoutProcessing: SessionTimeoutProcessingEnum.ROUTE_JUMP,
-
-  // color
-  themeColor: primaryColor,
 
   // Website gray mode, open for possible mourning dates
   grayMode: false,
@@ -57,16 +48,10 @@ const setting: ProjectConfig = {
     fixed: true,
     // Whether to show top
     show: true,
-    // theme
-    theme: ThemeEnum.LIGHT,
-    // Whether to enable the lock screen function
-    useLockPage: true,
     // Whether to show the full screen button
     showFullScreen: true,
     // Whether to show the document button
     showDoc: true,
-    // Whether to show the notification button
-    showNotice: true,
     // Whether to display the menu search
     showSearch: true,
   },
@@ -94,8 +79,6 @@ const setting: ProjectConfig = {
     mode: MenuModeEnum.INLINE,
     // Menu type
     type: MenuTypeEnum.SIDEBAR,
-    // Menu theme
-    theme: ThemeEnum.DARK,
     // Split menu
     split: false,
     // Top menu layout
@@ -110,21 +93,6 @@ const setting: ProjectConfig = {
     mixSideTrigger: MixSidebarTriggerEnum.CLICK,
     // Fixed expanded menu
     mixSideFixed: false,
-  },
-
-  // Multi-label
-  multiTabsSetting: {
-    cache: false,
-    // Turn on
-    show: true,
-    // Is it possible to drag and drop sorting tabs
-    canDrag: true,
-    // Turn on quick actions
-    showQuick: true,
-    // Whether to show the refresh button
-    showRedo: true,
-    // Whether to show the collapse button
-    showFold: true,
   },
 
   // Transition Setting
@@ -146,9 +114,6 @@ const setting: ProjectConfig = {
 
   // Whether to enable KeepAlive cache is best to close during development, otherwise the cache needs to be cleared every time
   openKeepAlive: true,
-
-  // Automatic screen lock time, 0 does not lock the screen. Unit minute default 0
-  lockTime: 0,
 
   // Whether to show breadcrumbs
   showBreadCrumb: true,
