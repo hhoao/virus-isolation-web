@@ -1,3 +1,4 @@
+export const LOCK_INFO_KEY = 'LOCK__INFO__KEY__';
 // token key
 export const TOKEN_KEY = 'TOKEN__';
 

@@ -4,7 +4,7 @@
 -->
 <template>
   <div class="anticon" :class="getAppLogoClass" @click="goHome">
-    <!--    <img src="../../../assets/images/logo.png" />-->
+    <img src="../../../assets/images/logo.png" :width="width" :height="height" />
     <div v-show="showTitle" class="ml-2 truncate md:opacity-100" :class="getTitleClass">
       {{ title }}
     </div>
@@ -19,6 +19,8 @@
   import { PageEnum } from '/@/enums/pageEnum';
 
   const props = defineProps({
+    height: { type: String },
+    width: { type: String },
     /**
      * Whether to show title
      */

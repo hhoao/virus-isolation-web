@@ -1,11 +1,10 @@
-import type { UserInfo } from '/#/store';
 import type { ErrorMessageMode } from '/#/axios';
 import { defineStore } from 'pinia';
 import { store } from '/@/store';
 import { TOKEN_KEY, USER_INFO_KEY } from '/@/enums/cacheEnum';
 import { PageEnum } from '/@/enums/pageEnum';
 import { getAuthCache, setAuthCache } from '/@/utils/auth';
-import { GetUserInfoModel, LoginParams } from '/@/api/model/AcountModel';
+import { GetAccountInfoModel, LoginParams, UserInfo } from '/@/api/model/AcountModel';
 import { doLogout, getAccountInfo, loginApi } from '/@/api/account';
 import { useI18n } from '/@/hooks/web/useI18n';
 import { useMessage } from '/@/hooks/web/useMessage';
@@ -71,7 +70,7 @@ export const useUserStore = defineStore({
         goHome?: boolean;
         mode?: ErrorMessageMode;
       },
-    ): Promise<GetUserInfoModel | null> {
+    ): Promise<GetAccountInfoModel | null> {
       try {
         const { goHome = true, mode, ...loginParams } = params;
         const data = await loginApi(loginParams, mode);
@@ -84,7 +83,7 @@ export const useUserStore = defineStore({
         return Promise.reject(error);
       }
     },
-    async afterLoginAction(goHome?: boolean): Promise<GetUserInfoModel | null> {
+    async afterLoginAction(goHome?: boolean): Promise<GetAccountInfoModel | null> {
       if (!this.getToken) return null;
       // get user info
       const userInfo = await this.getUserInfoAction();

@@ -1,7 +1,7 @@
-import 'virtual:windi-base.css';
-import 'virtual:windi-components.css';
+import 'uno.css';
+import 'uno:components.css';
+import 'uno:utilities.css';
 import '/@/design/index.less';
-import 'virtual:windi-utilities.css';
 import 'virtual:svg-icons-register';
 import App from './App.vue';
 import 'highlight.js/styles/github.css';

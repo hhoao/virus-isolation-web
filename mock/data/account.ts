@@ -1,60 +1,58 @@
-import { GetUserInfoModel } from '/@/api/model/AcountModel';
+import { OrganizationAccount, UserInfo } from '/@/api/model/AcountModel';
+import { mock } from 'mockjs';
 
-export const organizationAccountList = (() => {
-  const result: any[] = [];
+export const organizationAccountList: OrganizationAccount[] = (() => {
+  const result: OrganizationAccount[] = [];
   for (let index = 0; index < 20; index++) {
     result.push({
       id: `${index}`,
       username: '@first',
+      sex: '@pick(0, 1, 2)',
       email: '@email',
       phone: '@natural(1000000000, 9999999999)',
       nickname: '@cname()',
-
       createTime: '@datetime',
       latestTime: '@datetime',
-      remark: '@cword(10,20)',
-      'status|1': ['0', '1'],
+      status: mock('@boolean'),
       positionId: '@id',
     });
   }
   return result;
 })();
-export const accountList = (() => {
-  const result: any[] = [];
+export const accountList: UserInfo[] = (() => {
+  const result: UserInfo[] = [];
   for (let index = 0; index < 20; index++) {
     result.push({
       id: `${index}`,
+      avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
       username: '@first',
+      sex: '@pick(0, 1, 2)',
       email: '@email',
       phone: '@natural(1000000000, 9999999999)',
       nickname: '@cname()',
-      role: {
-        id: `${index}`,
-        name: '@name',
-        description: '@sentence(3, 5',
-        'status|1': ['0', '1'],
-        createTime: '@time',
-      },
       createTime: '@datetime',
       latestTime: '@datetime',
-      remark: '@cword(10,20)',
-      'status|1': ['0', '1'],
+      status: mock('@boolean'),
     });
   }
   return result;
 })();
 
-export function createFakeUserList(): GetUserInfoModel[] {
+export function createFakeUserList(): UserInfo[] {
   return [
     {
-      id: 1,
+      id: '1',
       username: 'mock',
+      nickname: 'mock',
+      sex: '@pick(0, 1, 2)',
       avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
       password: '123456',
       email: 'test@gmail.com',
       signature: '海纳百川，有容乃大',
       introduction: '微笑着，努力着，欣赏着',
       title: '交互专家',
+      school: 'web',
+      company: 'w3c',
       notifyCount: 12,
       unreadCount: 11,
       country: 'China',
@@ -63,67 +61,54 @@ export function createFakeUserList(): GetUserInfoModel[] {
       createTime: '2022-09-09T02:19:26.000+00:00',
       tags: [
         {
-          id: 0,
+          id: '@id',
           label: '很有想法的',
         },
         {
-          id: 1,
+          id: '@id',
           label: '专注设计',
         },
         {
-          id: 2,
+          id: '@id',
           label: '辣~',
         },
         {
-          id: 3,
+          id: '@id',
           label: '大长腿',
         },
         {
-          id: 4,
+          id: '@id',
           label: '川妹子',
         },
         {
-          id: 5,
+          id: '@id',
           label: '海纳百川',
         },
       ],
-      role: {
-        id: 1,
-        name: 'ROLE_ADMIN',
-        description: '管理者',
-        status: true,
-        createTime: '2022-09-09T02:19:26.000+00:00',
-      },
     },
     {
-      id: 2,
+      id: '@id',
       username: 'test',
+      nickname: 'test',
       avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
       password: '123456',
-      role: {
-        id: 2,
-        name: 'TESTER',
-        description: '测试人员',
-        status: true,
-        createTime: '2022-09-09T02:19:26.000+00:00',
-      },
     },
   ];
 }
 export const token1 = 'wethasdfkajsdfn';
 export const token2 = 'usdfhwkervsdfg';
-export const generateToken = (id: number) => {
+export const generateToken = (id: string) => {
   switch (id) {
-    case 1:
+    case '1':
       return token1;
-    case 2:
+    case '2':
       return token2;
     default:
       return '';
   }
 };
 
-export const getUserByToken = (token: string): GetUserInfoModel | undefined => {
+export const getUserByToken = (token: string): UserInfo | undefined => {
   switch (token) {
     case token1:
       return createFakeUserList()[0];

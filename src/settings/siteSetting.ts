@@ -1,7 +1,7 @@
 // github repo url
 export const GITHUB_URL = 'https://github.com/hhoao/virus-isolation-web';
 
-export const DOC_URL = '';
+export const DOC_URL = 'https://github.com/hhoao/virus-isolation-web';
 
 // site url
 export const SITE_URL = '';

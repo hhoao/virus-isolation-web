@@ -48,6 +48,8 @@ export interface HeaderSetting {
   // Show document button
   showDoc: boolean;
   showSearch: boolean;
+
+  useLockPage: boolean;
 }
 
 export interface LocaleSetting {

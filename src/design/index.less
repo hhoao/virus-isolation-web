@@ -1,8 +1,11 @@
+//@tailwind components;
 @import 'transition/index.less';
 @import 'var/index.less';
 @import 'public.less';
+//@tailwind base;
 @import 'ant/index.less';
 @import './theme.less';
+//@tailwind utilities;
 
 input:-webkit-autofill {
   box-shadow: 0 0 0 1000px white inset !important;
@@ -32,6 +35,22 @@ body {
     filter: grayscale(100%);
     filter: progid:dximagetransform.microsoft.basicimage(grayscale=1);
   }
+}
+
+a {
+  color: #1f1f1f;
+}
+
+* {
+  border-color: #e3e3e3;
+}
+
+ul {
+  padding: 0;
+}
+
+li {
+  list-style: none;
 }
 
 a:focus,

@@ -1,26 +1,22 @@
 <template>
-  <div ref="container" class="m-20px">
-    <a-row v-if="!getIsMobile" :gutter="20">
-      <a-col :span="4" />
-      <a-col :span="12">
-        <article-content />
-      </a-col>
-      <a-col :span="4">
-        <article-sidebar />
-      </a-col>
-      <a-col :span="4" />
-    </a-row>
-    <article-content v-else />
+  <div ref="container" class="grid h-full" style="grid-template-columns: 1fr 1280px">
+    <home-left-panel />
+    <home-main v-if="getHomeStatus === HomeStatusEnum.MAIN" />
+    <home-organization v-else-if="getHomeStatus === HomeStatusEnum.ORGANIZATION" />
+    <home-person v-else-if="getHomeStatus === HomeStatusEnum.PERSON" />
+    <home-settings v-else-if="getHomeStatus === HomeStatusEnum.SETTING" />
   </div>
 </template>
 
-<script setup lang="ts">
-  import ArticleContent from '/@/views/home/ArticleContent.vue';
-  import ArticleSidebar from '/@/views/home/ArticleSidebar.vue';
+<script lang="ts" setup>
   import { ref } from 'vue';
-  import { useAppInject } from '/@/hooks/web/useAppInject';
-
-  const { getIsMobile } = useAppInject();
+  import HomeLeftPanel from '/@/views/home/HomeLeftPanel.vue';
+  import { HomeStatusEnum, useHomeStatus } from '/@/views/home/useHome';
+  import HomeOrganization from '/@/views/home/HomeOrganization.vue';
+  import HomePerson from '/@/views/home/HomePerson.vue';
+  import HomeSettings from '/@/views/home/HomeSettings.vue';
+  import HomeMain from '/@/views/home/HomeMain.vue';
+  const { getHomeStatus } = useHomeStatus();
   const container = ref(null);
 </script>
 

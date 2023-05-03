@@ -70,6 +70,8 @@ export function useHeaderSetting() {
     );
   });
 
+  const getUseLockPage = computed(() => appStore.getHeaderSetting.useLockPage);
+
   const getShowHeaderLogo = computed(() => {
     return unref(getShowLogo) && !unref(getIsSidebarType) && !unref(getIsMixSidebar);
   });
@@ -84,7 +86,7 @@ export function useHeaderSetting() {
   }
   return {
     setHeaderSetting,
-
+    getUseLockPage,
     getShowDoc,
     getShowSearch,
     getShowFullScreen,

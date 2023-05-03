@@ -1,7 +1,9 @@
-import { defineConfig } from 'vite-plugin-windicss';
-
-export default defineConfig({
-  darkMode: 'class',
+/** @type {import("tailwindcss").Config} */
+module.exports = {
+  content: ['./index.html', './src/**/*.{vue,js,ts,jsx,tsx}'],
+  variants: {
+    extend: {},
+  },
   plugins: [createEnterPlugin()],
   theme: {
     extend: {
@@ -17,14 +19,14 @@ export default defineConfig({
       },
     },
   },
-});
+};
 
 /**
- * Used for animation when the element is displayed.
- * @param maxOutput The larger the maxOutput output, the larger the generated css volume.
- */
+ //  * Used for animation when the element is displayed.
+ //  * @param maxOutput The larger the maxOutput output, the larger the generated css volume.
+ //  */
 function createEnterPlugin(maxOutput = 6) {
-  const createCss = (index: number, d = 'x') => {
+  const createCss = (index, d = 'x') => {
     const upd = d.toUpperCase();
     return {
       [`*> .enter-${d}:nth-child(${index})`]: {

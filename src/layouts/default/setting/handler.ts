@@ -29,6 +29,7 @@ export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConf
           ...splitOpt,
         },
       };
+
     case HandlerEnum.MENU_HAS_DRAG:
       return { menuSetting: { canDrag: value } };
 
@@ -55,6 +56,10 @@ export function handler(event: HandlerEnum, value: any): DeepPartial<ProjectConf
 
     case HandlerEnum.MENU_SPLIT:
       return { menuSetting: { split: value } };
+
+    case HandlerEnum.MENU_CLOSE_MIX_SIDEBAR_ON_CHANGE:
+      return { menuSetting: { closeMixSidebarOnChange: value } };
+
     case HandlerEnum.MENU_FIXED:
       return { menuSetting: { fixed: value } };
 

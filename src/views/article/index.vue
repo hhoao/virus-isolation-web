@@ -1,5 +1,5 @@
 <template>
-  <div class="w-3/5 ml-1/5 mr-1/5 mt-20px container p-20px">
+  <div class="w-3/5 mx-20 mt-10 container">
     <article-content :id="id" />
     <a-divider />
     <article-left-right />

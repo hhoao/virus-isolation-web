@@ -15,8 +15,10 @@ import { configSvgIconsPlugin } from './svgSprite';
 import Components from 'unplugin-vue-components/vite';
 import { AntDesignVueResolver } from 'unplugin-vue-components/resolvers';
 // import fullImportPlugin from './fullImportComponent';
-import windiCSS from 'vite-plugin-windicss';
+// import windiCSS from 'vite-plugin-windicss';
 import { configMockPlugin } from './mock';
+// import Unocss from 'unocss/vite';
+import { configUnoCssPlugin } from './unoCss';
 
 export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
   const {
@@ -39,8 +41,9 @@ export function createVitePlugins(viteEnv: ViteEnv, isBuild: boolean) {
     }),
   ];
 
+  vitePlugins.push(configUnoCssPlugin());
   // vite-plugin-windicss
-  vitePlugins.push(windiCSS());
+  // vitePlugins.push(windiCSS());
 
   // @vitejs/plugin-legacy
   VITE_LEGACY && isBuild && vitePlugins.push(legacy());

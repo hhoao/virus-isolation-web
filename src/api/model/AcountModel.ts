@@ -2,9 +2,12 @@ import { BasicFetchPageResult, BasicPageParams } from '/@/api/model/BaseModel';
 /**
  * @description: Login interface parameters
  */
-import { UserInfo } from '/#/store';
-
 export type AccountPageParams = BasicPageParams & AccountParams;
+
+export interface AccountJoinOrganizationParam {
+  organizationId: string;
+  type: '1';
+}
 
 export type AccountParams = {
   account?: string;
@@ -43,9 +46,40 @@ export interface LoginResultModel {
   tokenHead: string;
 }
 
+export interface AccountTag {
+  id: string;
+  label: string;
+}
+
+export interface UserInfo {
+  id: string;
+  username: string;
+  nickname: string;
+  sex?: string;
+  avatar?: string;
+  desc?: string;
+  homePath?: string;
+  phone?: string;
+  email?: string;
+  icon?: string;
+  status?: boolean;
+  latestTime?: string;
+  notifyCount?: number;
+  introduction?: string;
+  school?: string;
+  company?: string;
+  createTime?: string;
+  signature?: string;
+  unreadCount?: number;
+  title?: string;
+  address?: string;
+  country?: string;
+  password?: string;
+  tags?: AccountTag[];
+}
+
 /**
  * @description: Get user information return value
  */
-export type GetUserInfoModel = UserInfo;
 
 export type OrganizationAccount = UserInfo & { positionId?: string };
