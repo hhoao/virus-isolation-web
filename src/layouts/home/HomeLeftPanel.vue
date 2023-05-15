@@ -31,20 +31,15 @@
 
 <script setup lang="ts">
   import { HomeStatusEnum, useHomeStatus } from '/@/views/home/useHome';
-  import UserDropdown from '/@/views/home/user-dropdown/index.vue';
-  import AppLogo from '/@/components/Application/src/AppLogo.vue';
+  import UserDropdown from './user-dropdown/index.vue';
+  import AppLogo from '@/components/Application/src/AppLogo.vue';
+  // import AppLogo from '/@/components/Application/src/AppLogo.vue';
 
   const navigateItemList = [
     {
       id: HomeStatusEnum.MAIN,
       name: '主页',
       onClick: () => setHomeStatus(HomeStatusEnum.MAIN),
-    },
-    {
-      id: HomeStatusEnum.MESSAGES,
-      name: '消息',
-      hasDivide: false,
-      onClick: () => setHomeStatus(HomeStatusEnum.MESSAGES),
     },
     {
       id: HomeStatusEnum.ORGANIZATION,

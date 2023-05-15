@@ -24,7 +24,7 @@ export const accountList: UserInfo[] = (() => {
   for (let index = 0; index < 20; index++) {
     result.push({
       id: `${index}`,
-      avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
+      avatar: 'https://q1.qlogo.cn/g?b=qq&nk=1192430988&s=640',
       username: '@first',
       sex: '@pick(0, 1, 2)',
       email: '@email',
@@ -45,7 +45,7 @@ export function createFakeUserList(): UserInfo[] {
       username: 'mock',
       nickname: 'mock',
       sex: '@pick(0, 1, 2)',
-      avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
+      avatar: 'https://q1.qlogo.cn/g?b=qq&nk=1192430988&s=640',
       password: '123456',
       email: 'test@gmail.com',
       signature: '海纳百川，有容乃大',
@@ -90,7 +90,7 @@ export function createFakeUserList(): UserInfo[] {
       id: '@id',
       username: 'test',
       nickname: 'test',
-      avatar: 'https://q1.qlogo.cn/g?b=qq&nk=190848757&s=640',
+      avatar: 'https://q1.qlogo.cn/g?b=qq&nk=1192430988&s=640',
       password: '123456',
     },
   ];

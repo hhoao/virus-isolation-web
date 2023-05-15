@@ -13,12 +13,12 @@
 </template>
 
 <script setup lang="ts">
-  import { accountColumns } from '/@/views/home/accountColums';
   import { ref, watch } from 'vue';
   import { getOrganizationAccountsPageListApi } from '/@/api/organization';
   import { OrganizationAccount } from '/@/api/model/AcountModel';
-  import { useHomeOrganization } from '/@/views/home/useHomeOrganization';
   import { merge } from 'lodash-es';
+  import { useHomeOrganization } from '/@/views/home/organization/useHomeOrganization';
+  import { accountColumns } from '/@/views/home/organization/accountColums';
 
   const { getCurrentOrganization } = useHomeOrganization();
   watch(

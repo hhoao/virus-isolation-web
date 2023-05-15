@@ -1,7 +1,5 @@
-import { VNode, defineComponent } from 'vue';
+import { createVNode, defineComponent, h, reactive, render, VNode } from 'vue';
 import type { LoadingProps } from './typing';
-
-import { createVNode, render, reactive, h } from 'vue';
 import Loading from './Loading.vue';
 
 export function createLoading(props?: Partial<LoadingProps>, target?: HTMLElement, wait = false) {
@@ -21,7 +19,6 @@ export function createLoading(props?: Partial<LoadingProps>, target?: HTMLElemen
   vm = createVNode(LoadingWrap);
 
   if (wait) {
-    // TODO fix https://github.com/anncwb/vue-vben-admin/issues/438
     setTimeout(() => {
       render(vm, document.createElement('div'));
     }, 0);

@@ -6,43 +6,42 @@
     </div>
     <div class="overflow-y-auto border-solid border rounded-lg mb-4">
       <div class="w-full h-full overflow-y-scroll">
-        <a-card v-for="item of articleListData" :key="item" class="mb-30px">
-          <a-skeleton :loading="loading" active avatar>
-            <div class="font-bold mb-10px text-st text-current text-lg">
-              <span class="hover:text-green-800 hover:cursor-pointer" @click="viewArticle">
-                {{ item.title }}
-              </span>
-            </div>
-            <div
-              class="clear-both overflow-hidden overflow-ellipsis text-gray-500"
-              style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5"
-            >
-              <img
-                v-if="!loading && item.cover && isUrl(item.cover)"
-                :src="item.cover"
-                alt="logo"
-                class="float-left h-3/4 w-2/7 m-2"
-                @error="
-                  () => {
-                    item.cover = '';
-                  }
-                "
-              />
-              <article
-                class="md-description text-base hover:cursor-pointer hover:text-gray-400"
-                v-html="item.content"
-                @click="viewArticle"
-              ></article>
-            </div>
-            <p class="text-base mt-4">
-              <a-space>
-                <span> <LikeOutlined /></span>
-                <span> <StarOutlined /></span>
-                <span> <MessageOutlined /></span>
-                <span> {{ item.lastModification }}</span>
-              </a-space>
-            </p>
-          </a-skeleton>
+        <a-skeleton class="my-4 mx-6" :loading="loading" active avatar :paragraph="{ rows: 10 }" />
+        <a-card v-show="!loading" v-for="item of articleListData" :key="item" class="mb-30px">
+          <div class="font-bold mb-10px text-st text-current text-lg">
+            <span class="hover:text-green-800 hover:cursor-pointer" @click="viewArticle">
+              {{ item.title }}
+            </span>
+          </div>
+          <div
+            class="clear-both overflow-hidden overflow-ellipsis text-gray-500"
+            style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 5"
+          >
+            <img
+              v-if="!loading && item.cover && isUrl(item.cover)"
+              :src="item.cover"
+              alt="logo"
+              class="float-left h-3/4 w-2/7 m-2"
+              @error="
+                () => {
+                  item.cover = '';
+                }
+              "
+            />
+            <article
+              class="md-description text-base hover:cursor-pointer hover:text-gray-400"
+              v-html="item.content"
+              @click="viewArticle"
+            ></article>
+          </div>
+          <p class="text-base mt-4">
+            <a-space>
+              <span> <LikeOutlined /></span>
+              <span> <StarOutlined /></span>
+              <span> <MessageOutlined /></span>
+              <span> {{ item.lastModification }}</span>
+            </a-space>
+          </p>
         </a-card>
         <div>
           <a-pagination

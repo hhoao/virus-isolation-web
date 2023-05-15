@@ -4,7 +4,7 @@
       <span class="font-bold text-xl">组织信息</span>
       <a class="float-right">排序 ></a>
     </div>
-    <div class="flex border-2 border-solid py-8 rounded-lg">
+    <div class="flex border-2 border-solid py-8 rounded-lg overflow-x-auto">
       <basic-form
         @register="register"
         @submit="handleSubmit"
@@ -28,11 +28,13 @@
 
 <script setup lang="ts">
   import { computed, onMounted, watch } from 'vue';
-  import { useHomeOrganization } from '/@/views/home/useHomeOrganization';
   import { FormProps, useForm } from '/@/components/Form';
   import headerImg from '/@/assets/images/header.png';
-  import { organizationSettingsSchema } from '/@/views/home/organizationProps';
   import { uploadApi } from '/@/api/upload';
+  import { useHomeOrganization } from '/@/views/home/organization/useHomeOrganization';
+  import { organizationSettingsSchema } from '/@/views/home/organization/organizationProps';
+  import BasicForm from '/@/components/Form/src/BasicForm.vue';
+  import CropperAvatar from '/@/components/Cropper/src/CropperAvatar.vue';
 
   const { getCurrentOrganization } = useHomeOrganization();
 

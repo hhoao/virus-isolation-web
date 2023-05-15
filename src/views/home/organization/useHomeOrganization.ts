@@ -1,11 +1,12 @@
 import { computed, ref } from 'vue';
 import { OrganizationModel } from '/@/api/model/OrganizationModel';
+import { useModal } from '/@/components/Modal';
 
 export enum OrganizationActionStatus {
   ORGANIZATION_INFO,
   ACCOUNTS_INFO,
   SIGN_IN,
-  HEALTH_CHECK_IN,
+  HEALTH_CLOCK,
 }
 
 const toolItemList = [
@@ -16,7 +17,7 @@ const toolItemList = [
   },
   { name: '人员信息', status: OrganizationActionStatus.ACCOUNTS_INFO, icon: 'information' },
   { name: '签到打卡', status: OrganizationActionStatus.SIGN_IN, icon: 'record' },
-  { name: '健康打卡', status: OrganizationActionStatus.HEALTH_CHECK_IN, icon: 'checkin' },
+  { name: '健康打卡', status: OrganizationActionStatus.HEALTH_CLOCK, icon: 'checkin' },
 ];
 
 const currentStatus = ref(OrganizationActionStatus.ORGANIZATION_INFO);
@@ -24,6 +25,10 @@ const currentStatus = ref(OrganizationActionStatus.ORGANIZATION_INFO);
 const currentOrganization = ref<Nullable<OrganizationModel>>(null);
 
 const headerBarRef = ref(null);
+
+const [registerSignInModal, { openModal: openSignInModal }] = useModal();
+const [registerHealthClockModal, { openModal: openHealthClockModal }] = useModal();
+
 export function useHomeOrganization() {
   function setHeaderBarRef(headerBar) {
     headerBarRef.value = headerBar;
@@ -48,5 +53,9 @@ export function useHomeOrganization() {
     getToolItemList,
     setOrganizationActionStatus,
     getOrganizationActionStatus,
+    openSignInModal,
+    registerSignInModal,
+    registerHealthClockModal,
+    openHealthClockModal,
   };
 }

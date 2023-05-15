@@ -32,6 +32,7 @@
     "gen:icon": "esno ./build/generate/icon/index.ts"
   },
   "dependencies": {
+    "@amap/amap-jsapi-loader": "^1.0.1",
     "@ant-design/colors": "6.0.0",
     "@ant-design/icons-vue": "6.1.0",
     "@iconify/iconify": "2.2.1",
@@ -63,6 +64,7 @@
     "vue": "3.2.33",
     "vue-dompurify-html": "^3.1.2",
     "vue-i18n": "9.1.9",
+    "vue-loader": "^17.1.1",
     "vue-router": "4.0.14",
     "vue-types": "4.1.1",
     "xlsx": "0.18.5"
@@ -143,7 +145,7 @@
     "vite-plugin-svg-icons": "2.0.1",
     "vite-plugin-vue-setup-extend": "0.4.0",
     "vue-eslint-parser": "8.3.0",
-    "vue-tsc": "0.33.9"
+    "vue-tsc": "^1.6.5"
   },
   "resolutions": {
     "bin-wrapper": "npm:bin-wrapper-china",

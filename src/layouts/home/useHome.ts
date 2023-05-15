@@ -5,7 +5,6 @@ export enum HomeStatusEnum {
   ORGANIZATION,
   PERSON,
   SETTING,
-  MESSAGES,
 }
 
 const currentStatus = ref(HomeStatusEnum.MAIN);

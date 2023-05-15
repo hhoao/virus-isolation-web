@@ -1,11 +1,11 @@
 <template>
-  <div ref="container" class="grid h-full" style="grid-template-columns: 200px 1280px">
+  <div ref="container" class="grid h-full" style="grid-template-columns: 1fr 1280px">
     <home-left-panel />
+    <page-layout />
     <home-main v-if="getHomeStatus === HomeStatusEnum.MAIN" />
     <home-organization v-else-if="getHomeStatus === HomeStatusEnum.ORGANIZATION" />
     <home-person v-else-if="getHomeStatus === HomeStatusEnum.PERSON" />
     <home-settings v-else-if="getHomeStatus === HomeStatusEnum.SETTING" />
-    <home-messages v-else-if="getHomeStatus === HomeStatusEnum.MESSAGES" />
   </div>
 </template>
 
@@ -13,11 +13,11 @@
   import { ref } from 'vue';
   import HomeLeftPanel from '/@/views/home/HomeLeftPanel.vue';
   import { HomeStatusEnum, useHomeStatus } from '/@/views/home/useHome';
-  import HomeMain from '/@/views/home/main/HomeMain.vue';
-  import HomeOrganization from '/@/views/home/organization/HomeOrganization.vue';
-  import HomePerson from '/@/views/home/person/HomePerson.vue';
-  import HomeSettings from '/@/views/home/settings/HomeSettings.vue';
-  import HomeMessages from '/@/views/home/messages/HomeMessages.vue';
+  import HomeOrganization from '/@/views/home/HomeOrganization.vue';
+  import HomePerson from '/@/views/home/HomePerson.vue';
+  import HomeSettings from '/@/views/home/HomeSettings.vue';
+  import HomeMain from '/@/views/home/HomeMain.vue';
+  import PageLayout from '/@/layouts/page/index.vue';
 
   const { getHomeStatus } = useHomeStatus();
   const container = ref(null);

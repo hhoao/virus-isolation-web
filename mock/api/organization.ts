@@ -2,7 +2,11 @@ import { MockMethod } from 'vite-plugin-mock';
 import { resultPageSuccess, resultSuccess } from '../_util';
 import { OrganizationApi } from '/@/api/enum/OrganizationApi';
 import { organizationAccountList } from '../data/account';
-import { organizationInvitationList, organizationMessageList } from '../data/organization';
+import {
+  organizationAccountSignInStatusList,
+  organizationInvitationList,
+  organizationMessageList,
+} from '../data/organization';
 
 export default [
   {
@@ -34,7 +38,7 @@ export default [
     },
   },
   {
-    url: OrganizationApi.GET_JOINED_ORGANIZATIONS_MESSAGES_PAGE_LIST,
+    url: OrganizationApi.GET_JOINED_ORGANIZATION_MESSAGES_PAGE_LIST,
     timeout: 100,
     method: 'get',
     response: ({ query }) => {
@@ -43,6 +47,18 @@ export default [
         return resultSuccess(organizationMessageList);
       }
       return resultPageSuccess(page, pageSize, organizationMessageList);
+    },
+  },
+  {
+    url: OrganizationApi.GET_ORGANIZATION_ACCOUNT_SIGN_IN_STATUS,
+    timeout: 100,
+    method: 'get',
+    response: ({ query }) => {
+      const { page = 1, pageSize = organizationAccountSignInStatusList.length } = query;
+      if (pageSize == 0) {
+        return resultSuccess(organizationAccountSignInStatusList);
+      }
+      return resultPageSuccess(page, pageSize, organizationAccountSignInStatusList);
     },
   },
   {

@@ -17,12 +17,22 @@
 </template>
 
 <script setup lang="ts">
-  import { OrganizationActionStatus, useHomeOrganization } from '/@/views/home/useHomeOrganization';
   import SvgIcon from '/@/components/Icon/src/SvgIcon.vue';
+  import {
+    OrganizationActionStatus,
+    useHomeOrganization,
+  } from '/@/views/home/organization/useHomeOrganization';
 
-  const { getToolItemList, setOrganizationActionStatus } = useHomeOrganization();
+  const { getToolItemList, setOrganizationActionStatus, openSignInModal, openHealthClockModal } =
+    useHomeOrganization();
   function setActionStatus(status: OrganizationActionStatus) {
-    setOrganizationActionStatus(status);
+    if (status === OrganizationActionStatus.SIGN_IN) {
+      openSignInModal();
+    } else if (status === OrganizationActionStatus.HEALTH_CLOCK) {
+      openHealthClockModal();
+    } else {
+      setOrganizationActionStatus(status);
+    }
   }
 </script>
 

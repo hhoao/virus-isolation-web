@@ -22,15 +22,13 @@
         />
       </div>
     </div>
-
-    <!--    <editable-component :record="{}" value="HelloWorld">HelloWorld</editable-component>-->
   </div>
 </template>
 
 <script setup lang="ts">
   import BasicForm from '/@/components/Form/src/BasicForm.vue';
   import { FormProps, useForm } from '/@/components/Form';
-  import { personSettingsSchema } from '/@/views/home/homePersonProps';
+  import { personSettingsSchema } from './homePersonProps';
   import { computed, onMounted } from 'vue';
   import { uploadApi } from '/@/api/upload';
   import { useUserStore } from '/@/store/modules/user';

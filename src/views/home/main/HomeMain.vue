@@ -6,8 +6,8 @@
 </template>
 
 <script lang="ts" setup>
-  import HomeMainArticleList from '/@/views/home/HomeMainArticleList.vue';
-  import HomeMainTopBar from '/@/views/home/HomeMainTopBar.vue';
+  import HomeMainTopBar from '/@/views/home/main/HomeMainTopBar.vue';
+  import HomeMainArticleList from '/@/views/home/main/HomeMainArticleList.vue';
 </script>
 
 <style></style>

@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/tsconfig",
   "compilerOptions": {
     "target": "esnext",
     "module": "esnext",
@@ -22,9 +23,18 @@
     "skipLibCheck": true,
     "types": ["vite/client"],
     "removeComments": true,
+
+    "declaration": true,
+    "noImplicitOverride": true,
+    "useUnknownInCatchVariables": false,
+    "composite": false,
+    "declarationMap": false,
+    "inlineSources": false,
+    "isolatedModules": true,
+    "preserveWatchOutput": true,
     "paths": {
       "/@/*": ["src/*"],
-      "/#/*": ["types/*"]
+      "/#/*": ["types/*"],
     }
   },
   "include": [

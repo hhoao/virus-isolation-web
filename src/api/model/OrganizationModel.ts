@@ -1,5 +1,16 @@
 import { BasicPageParams } from '/@/api/model/BaseModel';
 
+export enum SignInStatusType {
+  SUCCESS = 0,
+  WARN = 1,
+  DANGER = 2,
+}
+export interface OrganizationAccountSignInStatusModel {
+  id?: string;
+  date?: string;
+  type?: SignInStatusType;
+  content?: string;
+}
 export interface OrganizationModel {
   id?: string;
   name?: string;
@@ -17,5 +28,3 @@ export interface OrganizationParam {
 }
 
 export type OrganizationPageParams = OrganizationParam & BasicPageParams;
-export type OrganizationCommunicationMessagePageParam = CommonMessageModel & BasicPageParams;
-export type OrganizationInvitationMessagePageParam = CommonMessageModel & BasicPageParams;

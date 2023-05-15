@@ -33,3 +33,11 @@ export interface BeforeMiniState {
   menuMode?: MenuModeEnum;
   menuType?: MenuTypeEnum;
 }
+
+export interface UserInfo {
+  userId: string | number;
+  username: string;
+  realName: string;
+  avatar: string;
+  desc?: string;
+}
