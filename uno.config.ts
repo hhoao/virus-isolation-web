@@ -1,26 +1,19 @@
-/**
- * Mock plugin for development and production.
- * https://github.com/anncwb/vite-plugin-mock
- */
-import Unocss from 'unocss/vite';
-import { presetWind } from 'unocss';
+import { defineConfig, presetWind } from 'unocss';
 import UnocssIcons from '@unocss/preset-icons';
 
-export function configUnoCssPlugin() {
-  return Unocss({
-    preflights: createEnterPreflights(),
-    presets: [
-      presetWind(),
-      UnocssIcons({
-        // options
-        prefix: 'i-',
-        extraProperties: {
-          display: 'inline-block',
-        },
-      }),
-    ],
-  });
-}
+export default defineConfig({
+  preflights: createEnterPreflights(),
+  presets: [
+    presetWind(),
+    UnocssIcons({
+      // options
+      prefix: 'i-',
+      extraProperties: {
+        display: 'inline-block',
+      },
+    }),
+  ],
+});
 
 function createEnterPreflights(maxOutput = 10) {
   const createCss = (index, d = 'x') => {

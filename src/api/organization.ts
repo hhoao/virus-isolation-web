@@ -1,12 +1,50 @@
 import { defHttp } from '/@/utils/http/axios';
 
-import { OrganizationPageParams, OrganizationParam } from '/@/api/model/OrganizationModel';
+import {
+  OrganizationAccountHealthRecord,
+  OrganizationAccountSignInRecord,
+  OrganizationDocumentType,
+  OrganizationHealthRecodePageParams,
+  OrganizationPageParams,
+  OrganizationParam,
+  OrganizationSignInRecodePageParams,
+} from '/@/api/model/OrganizationModel';
 import { OrganizationApi } from '/@/api/enum/OrganizationApi';
 import { PathVariables } from '/#/axios';
 import { BasicFetchPageResult } from '/@/api/model/BaseModel';
 import { OrganizationAccount } from '/@/api/model/AcountModel';
 import { OrganizationInvitationMessageModel } from '/@/api/model/MessageModel';
 
+export const getOrganizationAccountSignInInfoPageListApi = (
+  params: OrganizationSignInRecodePageParams = {
+    pageNum: 1,
+    pageSize: 5,
+    type: OrganizationDocumentType.SIGN_IN_INFORMATION,
+  },
+  pathVariables: PathVariables,
+) =>
+  defHttp.get<BasicFetchPageResult<OrganizationAccountSignInRecord>>(
+    {
+      url: OrganizationApi.GET_ORGANIZATION_DOCUMENT_PAGE_LIST,
+      params,
+    },
+    { pathVariables },
+  );
+export const getOrganizationAccountsHealthRecordPageListApi = (
+  params: OrganizationHealthRecodePageParams = {
+    pageNum: 1,
+    pageSize: 5,
+    type: OrganizationDocumentType.HEALTH_INFORMATION,
+  },
+  pathVariables: PathVariables,
+) =>
+  defHttp.get<BasicFetchPageResult<OrganizationAccountHealthRecord>>(
+    {
+      url: OrganizationApi.GET_ORGANIZATION_DOCUMENT_PAGE_LIST,
+      params,
+    },
+    { pathVariables },
+  );
 export const getOrganizationAccountsPageListApi = (
   params: OrganizationPageParams = { pageNum: 1, pageSize: 5 },
 ) =>

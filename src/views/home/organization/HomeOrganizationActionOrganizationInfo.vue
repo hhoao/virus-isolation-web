@@ -1,10 +1,10 @@
 <template>
-  <div class="h-2/3 flex flex-col enter-x">
+  <div class="flex flex-col enter-x flex-grow my-4 overflow-auto">
     <div class="my-4">
       <span class="font-bold text-xl">组织信息</span>
       <a class="float-right">排序 ></a>
     </div>
-    <div class="flex border-2 border-solid py-8 rounded-lg overflow-x-auto">
+    <div class="flex border-2 border-solid py-8 rounded-lg overflow-auto flex-grow">
       <basic-form
         @register="register"
         @submit="handleSubmit"
@@ -20,8 +20,9 @@
             btnText="更换头像"
             :btnProps="{ preIcon: 'ant-design:cloud-upload-outlined' }"
             width="180"
-          /> </div
-      ></div>
+          />
+        </div>
+      </div>
     </div>
   </div>
 </template>

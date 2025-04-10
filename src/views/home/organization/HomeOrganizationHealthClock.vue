@@ -74,6 +74,14 @@
         ],
       },
     },
+    {
+      field: 'remark',
+      component: 'InputTextArea',
+      label: '备注',
+      colProps: {
+        span: 20,
+      },
+    },
   ];
   const model = ref({});
   const [

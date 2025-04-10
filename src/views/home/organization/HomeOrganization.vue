@@ -17,6 +17,12 @@
     <home-organization-action-organization-info
       v-else-if="getOrganizationActionStatus === OrganizationActionStatus.ORGANIZATION_INFO"
     />
+    <home-organization-action-sign-in-information
+      v-else-if="getOrganizationActionStatus === OrganizationActionStatus.SIGN_IN_INFO"
+    />
+    <home-organization-action-health-information
+      v-else-if="getOrganizationActionStatus === OrganizationActionStatus.HEALTH_INFO"
+    />
     <home-organization-action-sign-in />
     <home-organization-health-clock />
   </div>
@@ -31,6 +37,8 @@
   import HomeOrganizationActionBar from '/@/views/home/organization/HomeOrganizationActionBar.vue';
   import HomeOrganizationActionSignIn from '/@/views/home/organization/HomeOrganizationActionSignIn.vue';
   import HomeOrganizationHealthClock from '/@/views/home/organization/HomeOrganizationHealthClock.vue';
+  import HomeOrganizationActionSignInInformation from '/@/views/home/organization/HomeOrganizationActionSignInInformation.vue';
+  import HomeOrganizationActionHealthInformation from '/@/views/home/organization/HomeOrganizationActionHealthInformation.vue';
 
   const { getOrganizationActionStatus, setHeaderBarRef } = useHomeOrganization();
   const headerBarRef = ref(null);

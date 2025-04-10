@@ -1,5 +1,5 @@
 <template>
-  <div class="font-bold text-3xl">
+  <div class="font-bold text-3xl my-2">
     {{ articleData?.title }}
   </div>
   <a-space class="mb-10px">
@@ -18,9 +18,8 @@
   import { getDetailsArticles } from '/@/api/article';
   import { LikeOutlined, MessageOutlined, StarOutlined } from '@ant-design/icons-vue';
   import MarkdownViewer from '/@/components/Markdown/src/MarkdownViewer.vue';
-  import { router } from '/@/router';
-  import { getHeaders } from '/@/views/article/outline';
 
+  const emits = defineEmits(['onMarkdownViewerLoaded']);
   const props = defineProps({
     id: String,
   });
@@ -45,12 +44,7 @@
       () => markdownViewerRef.value?.getIsRendered,
       (value) => {
         if (value) {
-          setMenus(getHeaders());
-          const anchor = document.getElementById(router.currentRoute.value.hash.substring(1));
-          if (anchor) {
-            const body = document.body;
-            body.scrollTo({ left: 0, top: anchor.offsetTop, behavior: 'smooth' });
-          }
+          emits('onMarkdownViewerLoaded', markdownViewerRef);
         }
       },
       {

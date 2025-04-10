@@ -1,4 +1,6 @@
 import {
+  OrganizationAccountHealthRecord,
+  OrganizationAccountSignInRecord,
   OrganizationAccountSignInStatusModel,
   OrganizationModel,
 } from '/@/api/model/OrganizationModel';
@@ -8,6 +10,40 @@ import {
   OrganizationInvitationMessageModel,
 } from '/@/api/model/MessageModel';
 import * as Mock from 'mockjs';
+
+export const organizationAccountSignInRecodeList: OrganizationAccountSignInRecord[] = (() => {
+  const result: OrganizationAccountSignInRecord[] = [];
+  for (let index = 0; index < 40; index++) {
+    result.push({
+      id: '@id',
+      name: '@name',
+      status: Mock.mock('@pick(0, 1, 2)'),
+      createTime: `@date("${new Date().getFullYear()}-MM-dd")`,
+      address: '@county(true)',
+      remark: '@cparagraph',
+    });
+  }
+  return result;
+})();
+
+export const organizationAccountHealthRecodeList: OrganizationAccountHealthRecord[] = (() => {
+  const result: OrganizationAccountHealthRecord[] = [];
+  for (let index = 0; index < 40; index++) {
+    result.push({
+      id: '@id',
+      realName: '@cname',
+      jobNumber: '@id',
+      temperature: '@float(36, 37, 1, 1)',
+      isSignIn: '@pick(["true", "false"])',
+      createTime: `@date("${new Date().getFullYear()}-MM-dd")`,
+      address: '@county(true)',
+      discomfort: '@pick(["true", "false"])',
+      phone: '@integer(123412351986, 9999999999)',
+      remark: '@cparagraph',
+    });
+  }
+  return result;
+})();
 
 export const organizationAccountSignInStatusList: OrganizationAccountSignInStatusModel[] = (() => {
   const result: OrganizationAccountSignInStatusModel[] = [];
@@ -59,7 +95,7 @@ export const organizationList: OrganizationModel[] = (() => {
       name: `@name`,
       email: '@email',
       phone: '@first',
-      address: '@address',
+      address: '@county(true)',
       createTime: '@datetime',
       avatar: 'https://q1.qlogo.cn/g?b=qq&nk=1192430988&s=640',
       description: '@sentence',

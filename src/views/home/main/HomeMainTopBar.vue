@@ -8,7 +8,9 @@
         </span>
         <a class="float-right self-end">详细信息 ></a>
       </div>
-      <div class="border-2 border-solid border-gray-200 rounded-lg overflow-y-scroll pt-2 pl-4">
+      <div
+        class="border-2 border-solid border-gray-200 rounded-lg overflow-y-scroll pt-2 pl-4 flex-grow"
+      >
         <a-spin class="m-auto" :spinning="covidStatisticLoading">
           <div class="grid grid-cols-3">
             <template v-for="(value, label) in covidStatistic" :key="label">
@@ -41,7 +43,7 @@
       <div class="my-4 flex justify-between">
         <span class="font-bold text-xl">注意</span>
       </div>
-      <div class="border-2 border-solid border-gray-200 rounded-lg overflow-y-scroll">
+      <div class="border-2 border-solid border-gray-200 rounded-lg overflow-y-scroll flex-grow">
         <div class="grid grid-cols-1">
           <template v-for="(value, label) in remarkAndNotesData" :key="label">
             <span class="text-left m-2">
@@ -55,9 +57,9 @@
 </template>
 
 <script lang="ts" setup>
-  import { getCovid19Status } from '/@/api/health';
   import { onMounted, ref } from 'vue';
   import { CovidStatisticModel, RemarkAndNotesModel } from '/@/api/model/HealthModel';
+  import { getCovid19Status } from '/@/api/health';
   import dayjs from 'dayjs';
 
   const remarkAndNotesData = ref<RemarkAndNotesModel>({});

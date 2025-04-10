@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-6 h-screen">
+  <div class="grid grid-cols-6 h-screen enter-x">
     <div class="col-span-1">
       <home-messages-organization-list />
     </div>

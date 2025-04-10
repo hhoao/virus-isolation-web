@@ -3,10 +3,13 @@ import { resultPageSuccess, resultSuccess } from '../_util';
 import { OrganizationApi } from '/@/api/enum/OrganizationApi';
 import { organizationAccountList } from '../data/account';
 import {
+  organizationAccountHealthRecodeList,
+  organizationAccountSignInRecodeList,
   organizationAccountSignInStatusList,
   organizationInvitationList,
   organizationMessageList,
 } from '../data/organization';
+import { OrganizationDocumentType } from '/@/api/model/OrganizationModel';
 
 export default [
   {
@@ -71,6 +74,22 @@ export default [
         return resultSuccess(organizationAccountList);
       }
       return resultPageSuccess(page, pageSize, organizationAccountList);
+    },
+  },
+  {
+    url: OrganizationApi.GET_ORGANIZATION_DOCUMENT_PAGE_LIST,
+    timeout: 100,
+    method: 'get',
+    response: ({ query }) => {
+      const { page = 1, pageSize = 20, type = OrganizationDocumentType.HEALTH_INFORMATION } = query;
+      switch (type) {
+        case OrganizationDocumentType.HEALTH_INFORMATION.toString():
+          return resultPageSuccess(page, pageSize, organizationAccountHealthRecodeList);
+          break;
+        case OrganizationDocumentType.SIGN_IN_INFORMATION.toString():
+          return resultPageSuccess(page, pageSize, organizationAccountSignInRecodeList);
+          break;
+      }
     },
   },
   {

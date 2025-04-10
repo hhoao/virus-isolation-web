@@ -45,7 +45,7 @@
   import { useI18n } from '/@/hooks/web/useI18n';
   import { useDesign } from '/@/hooks/web/useDesign';
   // import { useModal } from '/@/components/Modal';
-  import headerImg from '/@/assets/images/header.jpg';
+  import headerImg from '/@/assets/images/header.png';
   import { openWindow } from '/@/utils';
 
   type MenuEvent = 'logout' | 'doc' | 'lock';

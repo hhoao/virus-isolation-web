@@ -1,9 +1,9 @@
 <template>
-  <div class="h-screen flex flex-col mx-8 enter-x">
+  <div class="my-4 flex flex-col mx-8 enter-x">
     <div class="font-bold text-xl my-4">
       <span>账户信息</span>
     </div>
-    <div class="py-8 border-2 border-solid rounded-lg overflow-auto flex">
+    <div class="py-8 border-2 border-solid rounded-lg overflow-auto flex flex-grow">
       <basic-form
         @register="register"
         class="w-2/3 mx-auto"

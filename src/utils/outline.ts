@@ -1,16 +1,17 @@
-import { Menu } from '/@/router/types';
-
-interface MenuWrapper extends Menu {
+export interface AnchorLink {
   level: number;
-  parent?: MenuWrapper;
+  parent?: AnchorLink;
+  children?: AnchorLink[];
+  name?: string;
+  path?: string;
 }
-export function getHeaders() {
-  const updatedHeaders: MenuWrapper[] = [];
+export function resolveAnchorLinks() {
+  const updatedHeaders: AnchorLink[] = [];
 
-  document.querySelectorAll<HTMLHeadingElement>('h2, h3, h4, h5, h6').forEach((el) => {
+  document.querySelectorAll<HTMLHeadingElement>('h1, h2, h3, h4, h5, h6').forEach((el) => {
     if (el.textContent && el.id) {
+      console.log(el.id);
       updatedHeaders.push({
-        // name: `#${el.id}`,
         children: [],
         level: Number(el.tagName[1]),
         name: el.innerText.replace(/\s+#\s*$/, ''),
@@ -21,13 +22,13 @@ export function getHeaders() {
   return resolveHeaders(updatedHeaders);
 }
 
-export function resolveHeaders(headers: MenuWrapper[]) {
-  const levels: [number, number] = [2, 6];
+export function resolveHeaders(headers: AnchorLink[]) {
+  const levels: [number, number] = [1, 6];
   return groupHeaders(headers, levels);
 }
 
-function groupHeaders(headers: MenuWrapper[], levelsRange: [number, number]) {
-  const result: MenuWrapper[] = [];
+function groupHeaders(headers: AnchorLink[], levelsRange: [number, number]) {
+  const result: AnchorLink[] = [];
 
   headers = headers.map((h) => ({ ...h }));
   headers.forEach((h, index) => {
@@ -41,7 +42,7 @@ function groupHeaders(headers: MenuWrapper[], levelsRange: [number, number]) {
   return result;
 }
 
-function addToParent(currIndex: number, headers: MenuWrapper[], levelsRange: [number, number]) {
+function addToParent(currIndex: number, headers: AnchorLink[], levelsRange: [number, number]) {
   if (currIndex === 0) {
     return true;
   }

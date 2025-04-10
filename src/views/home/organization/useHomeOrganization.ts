@@ -7,6 +7,8 @@ export enum OrganizationActionStatus {
   ACCOUNTS_INFO,
   SIGN_IN,
   HEALTH_CLOCK,
+  HEALTH_INFO,
+  SIGN_IN_INFO,
 }
 
 const toolItemList = [
@@ -16,8 +18,10 @@ const toolItemList = [
     icon: 'organization-information',
   },
   { name: '人员信息', status: OrganizationActionStatus.ACCOUNTS_INFO, icon: 'information' },
-  { name: '签到打卡', status: OrganizationActionStatus.SIGN_IN, icon: 'record' },
+  { name: '签到打卡', status: OrganizationActionStatus.SIGN_IN, icon: 'signin' },
   { name: '健康打卡', status: OrganizationActionStatus.HEALTH_CLOCK, icon: 'checkin' },
+  { name: '签到打卡信息', status: OrganizationActionStatus.SIGN_IN_INFO, icon: 'signin-info' },
+  { name: '健康打卡信息', status: OrganizationActionStatus.HEALTH_INFO, icon: 'health-info' },
 ];
 
 const currentStatus = ref(OrganizationActionStatus.ORGANIZATION_INFO);

@@ -2,7 +2,7 @@
   <div :class="prefixCls" class="h-2/3 flex flex-col">
     <div class="my-4">
       <span class="font-bold text-xl">最新资讯</span>
-      <a class="float-right">所有资讯 ></a>
+      <a class="float-right" @click="go('/articles')">所有资讯 ></a>
     </div>
     <div class="overflow-y-auto border-solid border rounded-lg mb-4">
       <div class="w-full h-full overflow-y-scroll">
