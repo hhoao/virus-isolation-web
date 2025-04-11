@@ -1,10 +1,10 @@
 <template>
-  <anchor-link :key="item.name" v-for="item in items" :href="item.path" :title="item.name">
+  <a-anchor-link :key="item.name" v-for="item in items" :href="item.path" :title="item.name">
     <article-anchor-link-item
       v-if="item.children && item.children.length != 0"
       :items="item.children"
     />
-  </anchor-link>
+  </a-anchor-link>
 </template>
 
 <script setup lang="ts">
